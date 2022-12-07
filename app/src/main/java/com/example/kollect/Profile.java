@@ -215,17 +215,14 @@ public class Profile extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-
         super.onSaveInstanceState(outState);
         outState.putString("user_name", username.getText().toString());
-
     }
 
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         _USERNAME = savedInstanceState.getString("user_name");
-
     }
 
 }

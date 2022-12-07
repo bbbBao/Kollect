@@ -92,7 +92,14 @@ public class Search extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.favorite:
-                        startActivity(new Intent(getApplicationContext(),Favorite.class));
+                        Intent changeIfo2 = new Intent(getApplicationContext(),Favorite.class);
+                        changeIfo2.putExtra("user_name",_USERNAME);
+                        changeIfo2.putExtra("gender",_GENDER);
+                        changeIfo2.putExtra("insta_id",_INSTALINK);
+                        changeIfo2.putExtra("password",_PASSWORD);
+                        changeIfo2.putExtra("fav_artist",_FAVARTIST);
+                        changeIfo2.putExtra("fav_group",_FAVGROUP);
+                        startActivity(changeIfo2);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.search:

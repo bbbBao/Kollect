@@ -7,14 +7,23 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Favorite extends AppCompatActivity implements AddFavoriteDialog.AddFavoriteDialogListener {
     private RecyclerView recyclerView1;
@@ -25,6 +34,7 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
     private Button addArtist;
     private MySQLiteOpenHelper databaseHelper;
     private String _USERNAME, _GENDER, _INSTALINK, _PASSWORD,_FAVARTIST,_FAVGROUP;
+    DatabaseReference reference;
 
 
     //private ArrayList<favartistlist> FavartistlistModelArrayList;
@@ -33,6 +43,7 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
+        reference = FirebaseDatabase.getInstance().getReference("Users");
         recyclerView1 = findViewById(R.id.groups_added);
         recyclerView2 = findViewById(R.id.artists_added);
         addGroup = findViewById(R.id.addGroupBtn);
@@ -63,7 +74,14 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.search:
-                        startActivity(new Intent(getApplicationContext(),Search.class));
+                        Intent changeIfo3 = new Intent(getApplicationContext(),Search.class);
+                        changeIfo3.putExtra("user_name",_USERNAME);
+                        changeIfo3.putExtra("gender",_GENDER);
+                        changeIfo3.putExtra("insta_id",_INSTALINK);
+                        changeIfo3.putExtra("password",_PASSWORD);
+                        changeIfo3.putExtra("fav_artist",_FAVARTIST);
+                        changeIfo3.putExtra("fav_group",_FAVGROUP);
+                        startActivity(changeIfo3);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.profile:
@@ -82,37 +100,53 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
                 return false;
             }
         });
-        arrayList1 = new ArrayList<String>();
-        arrayList2 = new ArrayList<String>();
-        arrayList1.add("BTS");
-        arrayList1.add("BlackPink");
-        arrayList2.add("Jennie");
-        arrayList2.add("Lisa");
-        arrayList2.add("Jimin");
-        // arrayList2.add("bbb");
-        recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        favGroupAdapter myAdapter = new favGroupAdapter(arrayList1);
-        recyclerView1.setAdapter(myAdapter);
+        readData(_USERNAME);
 
-        recyclerView2.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        favGroupAdapter myAdapter2 = new favGroupAdapter(arrayList2);
-        recyclerView2.setAdapter(myAdapter2);
-
-        addGroup.setOnClickListener(new View.OnClickListener() {
+    }
+    private void readData(String _USERNAME){
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.child(_USERNAME).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onClick(View view) {
-                openDialog();
-            }
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful()){
+                    if(task.getResult().exists()){
+                        DataSnapshot dataSnapshot = task.getResult();
+                        String favgroup = String.valueOf(dataSnapshot.child("fav_group").getValue());
+                        String s1[] = favgroup.split(";");
+                        arrayList1 = new ArrayList<String>(Arrays.asList(s1));
+                        String favartist = String.valueOf(dataSnapshot.child("fav_artist").getValue());
+                        String s2[]=favartist.split(";");
+                        arrayList2 = new ArrayList<String>(Arrays.asList(s2));
+                        recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+                        favGroupAdapter myAdapter = new favGroupAdapter(arrayList1);
+                        recyclerView1.setAdapter(myAdapter);
 
-        });
-        addArtist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog();
+                        recyclerView2.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+                        favGroupAdapter myAdapter2 = new favGroupAdapter(arrayList2);
+                        recyclerView2.setAdapter(myAdapter2);
+
+                        addGroup.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openDialog();
+                            }
+
+                        });
+                        addArtist.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openDialog();
+                            }
+                        });
+                    }else{
+                        Toast.makeText(Favorite.this,"User doesn't exist",Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(Favorite.this,"fail to read",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
-
     public void openDialog(){
         AddFavoriteDialog addFavoriteDialog = new AddFavoriteDialog();
         addFavoriteDialog.show(getSupportFragmentManager(),"example dialog");
@@ -120,10 +154,64 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
     @Override
     public void applyTexts(String groupname, Switch what) {
         if(!what.isChecked()){
-            arrayList1.add(groupname);
+            reference.child(_USERNAME).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if(task.isSuccessful()){
+                        if(task.getResult().exists()){
+                            DataSnapshot dataSnapshot = task.getResult();
+                            String favgroup = String.valueOf(dataSnapshot.child("fav_group").getValue());
+                            favgroup += ";"+groupname;
+                            reference.child(_USERNAME).child("fav_group").setValue(favgroup);
+                            String s1[] = favgroup.split(";");
+                            arrayList1 = new ArrayList<String>(Arrays.asList(s1));
+                            recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+                            favGroupAdapter myAdapter = new favGroupAdapter(arrayList1);
+                            recyclerView1.setAdapter(myAdapter);
+                        }else{
+                            Toast.makeText(Favorite.this,"User doesn't exist",Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(Favorite.this,"fail to read",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
         }else{
-            arrayList2.add(groupname);
+            reference.child(_USERNAME).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if(task.isSuccessful()){
+                        if(task.getResult().exists()){
+                            DataSnapshot dataSnapshot = task.getResult();
+                            String favartist = String.valueOf(dataSnapshot.child("fav_artist").getValue());
+                            favartist += ";"+groupname;
+                            reference.child(_USERNAME).child("fav_artist").setValue(favartist);
+                            String s2[]=favartist.split(";");
+                            arrayList2 = new ArrayList<String>(Arrays.asList(s2));
+                            recyclerView2.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+                            favGroupAdapter myAdapter2 = new favGroupAdapter(arrayList2);
+                            recyclerView2.setAdapter(myAdapter2);
+                        }else{
+                            Toast.makeText(Favorite.this,"User doesn't exist",Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(Favorite.this,"fail to read",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("user_name", _USERNAME);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        _USERNAME = savedInstanceState.getString("user_name");
     }
 
 }
