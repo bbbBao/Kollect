@@ -42,9 +42,9 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/icon"
                         tools:srcCompat="@drawable/icon" />
-                        app:srcCompat="@drawable/user_icon"
-                        tools:srcCompat="@drawable/user_icon" />
+
 
 
                 </androidx.cardview.widget.CardView>
