@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "962359429519",
+    "project_id": "kollect-55880",
+    "storage_bucket": "kollect-55880.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962359429519:android:ebe19da64b5d464d3f23fa",
+        "android_client_info": {
+          "package_name": "com.example.kollect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962359429519-bi4ev0fnbgijapsmmpfi1loiqcbdikg9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuXAxCXioZ17E2Er1jeKAhQl035PJ3h3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962359429519-bi4ev0fnbgijapsmmpfi1loiqcbdikg9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
