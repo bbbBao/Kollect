@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.annotations.NotNull;
@@ -38,10 +39,14 @@ import com.paypal.checkout.shipping.ShippingChangeData;
 import java.util.ArrayList;
 
 public class GetPremium extends AppCompatActivity {
-
+    private String _USERNAME;
+    private boolean isPremium;
     private static final String YOUR_CLIENT_ID = "Aetfa-NyKGfIWgKNR9PA3DeBxPKvSct9-tD392aBVw-S0Frr8kAjiyobjnEfkOMehPF8w1hAS_uo3iLf";
     PayPalButton payPalButton;
     Button btn_back;
+    TextView payed;
+
+    private MySQLiteOpenHelper databaseHelper;
     //PaymentButtonContainer paymentButtonContainer;
 
     @Override
@@ -55,6 +60,17 @@ public class GetPremium extends AppCompatActivity {
                 UserAction.PAY_NOW
 
         ));
+
+        Intent intent = getIntent();
+
+        _USERNAME = intent.getStringExtra("user_name");
+        databaseHelper = new MySQLiteOpenHelper(this);
+        Log.w(_USERNAME, "user name");
+        isPremium = databaseHelper.getPremium(_USERNAME);
+
+
+        Log.w(String.valueOf(isPremium), "isPremium");
+
         setContentView(R.layout.activity_get_premium);
 
         btn_back = findViewById(R.id.btn_back);
@@ -63,11 +79,19 @@ public class GetPremium extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(GetPremium.this, Profile.class);
+                intent.putExtra("user_name", _USERNAME);
                 startActivity(intent);
             }
         });
 
         payPalButton = findViewById(R.id.payPalButton);
+        if (isPremium){
+            findViewById(R.id.payPalButton).setClickable(false);
+            btn_back.setText("Return");
+            payed = findViewById(R.id.textView_Payed);
+            payed.setText("You are a premium member already! PayPal has been disabled.");
+
+        }
         //paymentButtonContainer = findViewById(R.id.payment_button_container);
         payPalButton.setup(
                 new CreateOrder() {
@@ -105,8 +129,11 @@ public class GetPremium extends AppCompatActivity {
                             @Override
                             public void onCaptureComplete(@NotNull CaptureOrderResult result) {
                                 Log.i("CaptureOrder", String.format("CaptureOrderResult: %s", result));
+                                databaseHelper.setPremium(_USERNAME, 1);
+                                Log.w(String.valueOf(databaseHelper.getPremium(_USERNAME)), "PREMIUM STATUS");
                                 Toast.makeText(GetPremium.this, "Thank you for your purchase!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(GetPremium.this, Profile.class);
+                                intent.putExtra("user_name", _USERNAME);
                                 startActivity(intent);
                             }
                         });

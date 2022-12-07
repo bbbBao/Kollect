@@ -115,7 +115,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent getPremium = new Intent(getApplicationContext(),GetPremium.class);
-
+                getPremium.putExtra("user_name", _USERNAME);
                 startActivity(getPremium);
             }
         });
@@ -123,7 +123,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent getPremium = new Intent(getApplicationContext(),GetPremium.class);
-
+                getPremium.putExtra("user_name", _USERNAME);
                 startActivity(getPremium);
             }
         });

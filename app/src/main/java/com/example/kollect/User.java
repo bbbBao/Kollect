@@ -42,10 +42,10 @@ public class User implements Serializable {
     public String getFav_group() {
         return fav_group;
     }
-//
-//    public int getPremium() {
-//        return premium;
-//    }
+
+    public int getPremium() {
+        return premium;
+    }
 
     public String getUser_name() {
         return username;
