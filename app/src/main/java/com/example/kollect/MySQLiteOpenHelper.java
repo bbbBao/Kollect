@@ -226,10 +226,10 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public ArrayList<Integer> getPrice(String a_name){
-        String sqlQuery = "select price from " + TABLE_NAME_POSTS + " WHERE " + "artist_name" + " Like '%"+a_name+"%'";
+    public ArrayList<Integer> getPrice(String artist_name){
+        String sqlQuery = "select price from " + TABLE_NAME_POSTS + " WHERE " + "artist_name" + " = ? ";
         SQLiteDatabase db = this.getWritableDatabase( );
-        Cursor cursor = db.rawQuery( sqlQuery, null );
+        Cursor cursor = db.rawQuery( sqlQuery, new String[] {artist_name} );
         ArrayList<Integer> prices = new ArrayList<Integer>( );
         while( cursor.moveToNext( ) ) {
             int p = cursor.getInt(cursor.getColumnIndex("price"));

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="Report"
+            android:text="Kollect Premium"
             android:textSize="24dp" />
 
         <LinearLayout
@@ -37,8 +37,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="Enter Artist Name Here"
+                android:inputType="textPersonName" />
 
             <Button
                 android:id="@+id/search_btn"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="Search Your Artist:"
+            android:text="Price Prediction"
             android:textSize="24dp" />
 
         <TableLayout

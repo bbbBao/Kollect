@@ -18,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.checkerframework.checker.units.qual.A;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -48,7 +49,6 @@ public class Premium extends AppCompatActivity {
         median = (TextView) findViewById(R.id.median);
         predict = (TextView) findViewById(R.id.predict);
 
-//        不知道干什么用 search里面有了就加进来
         Intent intent = getIntent();
 
         _USERNAME = intent.getStringExtra("user_name");
@@ -58,17 +58,16 @@ public class Premium extends AppCompatActivity {
         _FAVARTIST = intent.getStringExtra("fav_artist");
         _FAVGROUP = intent.getStringExtra("fav_group");
 
-//        这个也是抄的
         databaseHelper = new MySQLiteOpenHelper(this);
-
 
 
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //        找到artist的name
+
                 String a_name = artist_name.getText().toString();
-//        使用getPrice function，搞一个array list里面全是这个artist的price
+                Log.w(a_name, "artist name");
+
                   PriceArrayList = databaseHelper.getPrice(a_name);
 
                 if (PriceArrayList.size()!=0){
@@ -76,7 +75,9 @@ public class Premium extends AppCompatActivity {
                     upper_bound.setText(Integer.toString(getUpperBound(PriceArrayList)));
                     mean.setText(String.valueOf(getMean(PriceArrayList)));
                     median.setText(String.valueOf(getLowerBound(PriceArrayList)));
-                    predict.setText(String.valueOf(getMean(PriceArrayList)) + "±" + String.valueOf(getSD(PriceArrayList)));
+                    double sd = getSD(PriceArrayList);
+                    String format = new DecimalFormat("##.##").format(sd);
+                    predict.setText(String.valueOf(getMean(PriceArrayList)) + "±" + format);
                 }else{
                     Toast.makeText(Premium.this, "No such data found", Toast.LENGTH_LONG).show();
                 }
@@ -89,7 +90,7 @@ public class Premium extends AppCompatActivity {
         });
 
 
-//这个你看得懂的
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.search);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -127,19 +128,19 @@ public class Premium extends AppCompatActivity {
         });
     }
 
-    //    搞一个lower bound
+    //    lower bound
     public Integer getLowerBound(ArrayList<Integer> arr) {
 
         return Collections.min(arr);
     }
 
-    //    搞一个upper bound
+    //    upper bound
     public Integer getUpperBound(ArrayList<Integer> arr) {
 
         return Collections.max(arr);
     }
 
-    //    搞一个mean
+    //    mean
     public double getMean(ArrayList<Integer> arr) {
 
         Integer sum = 0;
