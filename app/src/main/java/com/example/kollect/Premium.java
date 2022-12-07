@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -68,14 +69,22 @@ public class Premium extends AppCompatActivity {
                 //        找到artist的name
                 String a_name = artist_name.getText().toString();
 //        使用getPrice function，搞一个array list里面全是这个artist的price
-                PriceArrayList = databaseHelper.getPrice(a_name);
-                Log.w(String.valueOf(PriceArrayList), "array");
+                  PriceArrayList = databaseHelper.getPrice(a_name);
 
-                lower_bound.setText(Integer.toString(getLowerBound(PriceArrayList)));
-                upper_bound.setText(Integer.toString(getUpperBound(PriceArrayList)));
-                mean.setText(String.valueOf(getMean(PriceArrayList)));
-                median.setText(String.valueOf(getLowerBound(PriceArrayList)));
-                predict.setText(String.valueOf(getMean(PriceArrayList)) + "±" + String.valueOf(getSD(PriceArrayList)));
+                if (PriceArrayList.size()!=0){
+                    lower_bound.setText(Integer.toString(getLowerBound(PriceArrayList)));
+                    upper_bound.setText(Integer.toString(getUpperBound(PriceArrayList)));
+                    mean.setText(String.valueOf(getMean(PriceArrayList)));
+                    median.setText(String.valueOf(getLowerBound(PriceArrayList)));
+                    predict.setText(String.valueOf(getMean(PriceArrayList)) + "±" + String.valueOf(getSD(PriceArrayList)));
+                }else{
+                    Toast.makeText(Premium.this, "No such data found", Toast.LENGTH_LONG).show();
+                }
+
+
+
+
+
             }
         });
 
