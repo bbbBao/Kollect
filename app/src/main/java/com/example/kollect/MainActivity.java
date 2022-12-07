@@ -9,16 +9,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private String _USERNAME, _GENDER, _INSTALINK, _PASSWORD;
+    private ListView listView;
+    private ArrayList<Post> postModelArrayList;
+    private CustomAdapterPosts customAdapterPosts;
+    private MySQLiteOpenHelper databaseHelper;
     private FirebaseDatabase myFirebasedata;
 
     @Override
@@ -34,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
         _GENDER = intent.getStringExtra("gender");
         _INSTALINK = intent.getStringExtra("insta_id");
         _PASSWORD = intent.getStringExtra("password");
+
+        listView = (ListView) findViewById(R.id.listview);
+
+        databaseHelper = new MySQLiteOpenHelper(this);
+
+        postModelArrayList = databaseHelper.getAllPosts();
+
+        customAdapterPosts = new CustomAdapterPosts(this,postModelArrayList);
+        listView.setAdapter(customAdapterPosts);
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

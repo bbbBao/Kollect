@@ -6,14 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Home"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
 
     <Button
         android:id="@+id/btnAddPost"
@@ -22,10 +14,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="40dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="405dp"
-        android:layout_marginEnd="232dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="262dp"
         android:onClick="newPostActivity"
         android:text="Add Post" />
 
@@ -36,11 +28,24 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="233dp"
-        android:layout_marginTop="406dp"
-        android:layout_marginEnd="63dp"
+        android:layout_marginStart="244dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="52dp"
         android:onClick="newUserActivity"
         android:text="Add User" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="305dp"
+        android:layout_height="600dp"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="7dp"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
