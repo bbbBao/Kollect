@@ -24,6 +24,7 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
     private Button addGroup;
     private Button addArtist;
     private MySQLiteOpenHelper databaseHelper;
+
     //private ArrayList<favartistlist> FavartistlistModelArrayList;
 
     @Override
