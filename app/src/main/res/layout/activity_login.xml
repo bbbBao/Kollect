@@ -117,7 +117,8 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:backgroundTint="@color/kollect_pink"
+            android:progressTint="@color/kollect_pink" />
 
 
     </LinearLayout>
