@@ -84,12 +84,12 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
         });
         arrayList1 = new ArrayList<String>();
         arrayList2 = new ArrayList<String>();
-        arrayList1.add("aaa");
-        arrayList1.add("aaa");
-        arrayList2.add("bbb");
-        arrayList2.add("bbb");
-        arrayList2.add("bbb");
-        arrayList2.add("bbb");
+        arrayList1.add("BTS");
+        arrayList1.add("BlackPink");
+        arrayList2.add("Jennie");
+        arrayList2.add("Lisa");
+        arrayList2.add("Jimin");
+        // arrayList2.add("bbb");
         recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         favGroupAdapter myAdapter = new favGroupAdapter(arrayList1);
         recyclerView1.setAdapter(myAdapter);
