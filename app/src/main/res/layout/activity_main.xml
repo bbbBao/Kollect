@@ -39,7 +39,8 @@
         android:layout_marginTop="563dp"
         android:layout_marginEnd="8dp"
         android:onClick="newPostActivity"
-        app:srcCompat="@drawable/add" />
+        app:srcCompat="@drawable/add"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
 </RelativeLayout>
