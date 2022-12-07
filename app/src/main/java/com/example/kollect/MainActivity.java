@@ -9,12 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
         _PASSWORD = intent.getStringExtra("password");
         _FAVARTIST = intent.getStringExtra("fav_artist");
         _FAVGROUP = intent.getStringExtra("fav_group");
+
+        listView = (ListView) findViewById(R.id.listview);
+
+        databaseHelper = new MySQLiteOpenHelper(this);
+
+        postModelArrayList = databaseHelper.getAllPosts();
+
+        customAdapterPosts = new CustomAdapterPosts(this,postModelArrayList);
+        listView.setAdapter(customAdapterPosts);
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
