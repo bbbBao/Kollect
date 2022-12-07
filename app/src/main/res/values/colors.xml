@@ -12,4 +12,5 @@
     <color name="clr_normal">#ff6eff2d</color>
     <color name="clr_pressed">#669966</color>
     <color name="kollect_pink">#fc7fb6</color>
+    <color name="content_bkg">#FFE0D1</color>
 </resources>

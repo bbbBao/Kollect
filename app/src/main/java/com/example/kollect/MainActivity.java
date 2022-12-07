@@ -22,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
 
     private String _USERNAME, _GENDER, _INSTALINK, _PASSWORD,_FAVARTIST,_FAVGROUP;
     private FirebaseDatabase myFirebasedata;
+    private ListView listView;
+    private ArrayList<Post> postModelArrayList;
+    private CustomAdapterPosts customAdapterPosts;
+    private MySQLiteOpenHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
