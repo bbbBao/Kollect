@@ -129,6 +129,22 @@ public class Profile extends AppCompatActivity {
         });
 
 
+        pre_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Premium = new Intent(getApplicationContext(), com.example.kollect.Premium.class);
+                startActivity(Premium);
+            }
+        });
+
+        pre_arr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Premium = new Intent(getApplicationContext(), com.example.kollect.Premium.class);
+                startActivity(Premium);
+            }
+        });
+
         instaButton = findViewById(R.id.instagram_btn);
         instaButton.setOnClickListener(new View.OnClickListener() {
             @Override

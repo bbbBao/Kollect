@@ -5,5 +5,5 @@
         android:color="@color/kollect_pink"/>
     <item
         android:state_selected="true"
-        android:color = "@color/purple_700"/>
+        android:color = "@color/dark_pink"/>
 </selector>

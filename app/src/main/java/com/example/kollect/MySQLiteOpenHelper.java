@@ -225,6 +225,22 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         return posts;
     }
 
+    @SuppressLint("Range")
+    public ArrayList<Integer> getPrice(String artist_name){
+        String sqlQuery = "select price from " + TABLE_NAME_POSTS + " WHERE " + "artist_name" + "=?";
+        SQLiteDatabase db = this.getWritableDatabase( );
+        Cursor cursor = db.rawQuery( sqlQuery, null );
+        ArrayList<Integer> prices = new ArrayList<Integer>( );
+        while( cursor.moveToNext( ) ) {
+            int p = cursor.getInt(cursor.getColumnIndex("price"));
+            prices.add(p);
+        }
+        db.close( );
+        return prices;
+
+    }
+
+
 
     @SuppressLint("Range")
     public ArrayList<Blacklist> getSearchedBlacklistPosts(String instagramID ) {

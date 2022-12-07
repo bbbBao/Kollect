@@ -42,7 +42,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:scaleType="centerCrop"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        tools:srcCompat="@drawable/icon" />
 
 
                 </androidx.cardview.widget.CardView>
