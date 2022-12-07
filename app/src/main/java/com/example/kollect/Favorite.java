@@ -74,27 +74,26 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.search:
-                        Intent changeIfo3 = new Intent(getApplicationContext(),Search.class);
-                        changeIfo3.putExtra("user_name",_USERNAME);
-                        changeIfo3.putExtra("gender",_GENDER);
-                        changeIfo3.putExtra("insta_id",_INSTALINK);
-                        changeIfo3.putExtra("password",_PASSWORD);
-                        changeIfo3.putExtra("fav_artist",_FAVARTIST);
-                        changeIfo3.putExtra("fav_group",_FAVGROUP);
-                        startActivity(changeIfo3);
-                        overridePendingTransition(0,0);
+                        Intent changeIfo2 = new Intent(getApplicationContext(), Search.class);
+                        changeIfo2.putExtra("user_name", _USERNAME);
+                        changeIfo2.putExtra("gender", _GENDER);
+                        changeIfo2.putExtra("insta_id", _INSTALINK);
+                        changeIfo2.putExtra("password", _PASSWORD);
+                        changeIfo2.putExtra("fav_artist", _FAVARTIST);
+                        changeIfo2.putExtra("fav_group", _FAVGROUP);
+                        startActivity(changeIfo2);
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.profile:
-                        Intent changeIfo = new Intent(getApplicationContext(), Profile.class);
-                        changeIfo.putExtra("user_name", _USERNAME);
-                        changeIfo.putExtra("gender", _GENDER);
-                        changeIfo.putExtra("insta_id", _INSTALINK);
-                        changeIfo.putExtra("password", _PASSWORD);
-                        changeIfo.putExtra("fav_artist", _FAVARTIST);
-                        changeIfo.putExtra("fav_group", _FAVGROUP);
-
-                        startActivity(changeIfo);
-                        overridePendingTransition(0,0);
+                        Intent changeIfo3 = new Intent(getApplicationContext(), Profile.class);
+                        changeIfo3.putExtra("user_name", _USERNAME);
+                        changeIfo3.putExtra("gender", _GENDER);
+                        changeIfo3.putExtra("insta_id", _INSTALINK);
+                        changeIfo3.putExtra("password", _PASSWORD);
+                        changeIfo3.putExtra("fav_artist", _FAVARTIST);
+                        changeIfo3.putExtra("fav_group", _FAVGROUP);
+                        startActivity(changeIfo3);
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;

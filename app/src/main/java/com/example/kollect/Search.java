@@ -107,17 +107,17 @@ public class Search extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.profile:
-                        Intent changeIfo = new Intent(getApplicationContext(), Profile.class);
-                        changeIfo.putExtra("user_name", _USERNAME);
-                        changeIfo.putExtra("gender", _GENDER);
-                        changeIfo.putExtra("insta_id", _INSTALINK);
-                        changeIfo.putExtra("password", _PASSWORD);
-                        changeIfo.putExtra("fav_artist", _FAVARTIST);
-                        changeIfo.putExtra("fav_group", _FAVGROUP);
+                        Intent changeIfo3 = new Intent(getApplicationContext(), Profile.class);
+                        changeIfo3.putExtra("user_name", _USERNAME);
+                        changeIfo3.putExtra("gender", _GENDER);
+                        changeIfo3.putExtra("insta_id", _INSTALINK);
+                        changeIfo3.putExtra("password", _PASSWORD);
+                        changeIfo3.putExtra("fav_artist", _FAVARTIST);
+                        changeIfo3.putExtra("fav_group", _FAVGROUP);
 
 
-                        startActivity(changeIfo);
-                        overridePendingTransition(0,0);
+                        startActivity(changeIfo3);
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;

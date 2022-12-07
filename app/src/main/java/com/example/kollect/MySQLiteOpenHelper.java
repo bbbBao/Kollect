@@ -279,6 +279,28 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
      */
 
+    public boolean getPremium(String user_name){
+        String sqlQuery = "select premium from " + TABLE_NAME_USER + " WHERE " + "username" + " = ? ";
+        SQLiteDatabase db = this.getWritableDatabase( );
+        Cursor cursor = db.rawQuery( sqlQuery, new String[] {user_name} );
+        boolean isPremium = false;
+        while( cursor.moveToNext( ) ) {
+            @SuppressLint("Range") int p = cursor.getInt(cursor.getColumnIndex("premium"));
+            if (p == 1){
+                isPremium = true;
+            };
+        }
+        db.close( );
+        return isPremium;
+    }
+
+    public void setPremium(String user_name, int isPremium){
+        SQLiteDatabase db=getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("premium", isPremium);
+        db.update(TABLE_NAME_USER, values, "username" + " = ?", new String[]{user_name});
+    }
+
 
     //添加数据
     public void insertUser(String user_name, String password, String gender, String instagram_id){
@@ -288,6 +310,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         values.put("password", password);
         values.put("gender", gender);
         values.put("insta_id", instagram_id);
+        values.put("premium", 0);
         db.insert(TABLE_NAME_USER,null,values);
     }
     //根据学号删除信息 防止有重名的同学

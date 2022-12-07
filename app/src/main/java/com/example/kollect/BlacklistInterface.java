@@ -6,14 +6,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 public class BlacklistInterface extends AppCompatActivity {
-    private Button btnAdd, btnGetAll;
-
+    private String _USERNAME;
+    private Button btnAdd, btnBack;
+    private TextView bl_disable;
     private ListView listView;
     private ArrayList<Blacklist> blacklistModelArrayList;
     private CustomAdapterBlacklist customAdapterBlacklist;
@@ -24,10 +26,30 @@ public class BlacklistInterface extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blacklist);
         btnAdd = (Button) findViewById(R.id.Add_Blacklist_btn);
+        btnBack = (Button) findViewById(R.id.bl_back);
 
-        listView = (ListView) findViewById(R.id.listview);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BlacklistInterface.this, Profile.class);
+                intent.putExtra("user_name", _USERNAME);
+                startActivity(intent);
+            }
+        });
 
         databaseHelper = new MySQLiteOpenHelper(this);
+
+        Intent intent = getIntent();
+        _USERNAME = intent.getStringExtra("user_name");
+
+        boolean isPremium = databaseHelper.getPremium(_USERNAME);
+        if (!isPremium){
+            btnAdd.setEnabled(false);
+            bl_disable = findViewById(R.id.bl_disable);
+            bl_disable.setText("You can't add seller since you are not a premium member.");
+        }
+
+        listView = (ListView) findViewById(R.id.listview);
 
         blacklistModelArrayList = databaseHelper.getAllBlacklist();
 
