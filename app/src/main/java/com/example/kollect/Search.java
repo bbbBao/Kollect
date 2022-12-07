@@ -45,7 +45,10 @@ public class Search extends AppCompatActivity {
         _PASSWORD = intent.getStringExtra("password");
         _FAVARTIST = intent.getStringExtra("fav_artist");
         _FAVGROUP = intent.getStringExtra("fav_group");
+        if (savedInstanceState != null) {
+            _USERNAME = savedInstanceState.getString("user_name");
 
+        }
         search_group_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,19 +95,26 @@ public class Search extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.favorite:
-                        Intent changeIfo2 = new Intent(getApplicationContext(),Favorite.class);
-                        changeIfo2.putExtra("user_name",_USERNAME);
-                        changeIfo2.putExtra("gender",_GENDER);
-                        changeIfo2.putExtra("insta_id",_INSTALINK);
-                        changeIfo2.putExtra("password",_PASSWORD);
-                        changeIfo2.putExtra("fav_artist",_FAVARTIST);
-                        changeIfo2.putExtra("fav_group",_FAVGROUP);
-                        startActivity(changeIfo2);
+                        Intent changeIfo1 = new Intent(getApplicationContext(),Favorite.class);
+                        changeIfo1.putExtra("user_name",_USERNAME);
+                        changeIfo1.putExtra("gender",_GENDER);
+                        changeIfo1.putExtra("insta_id",_INSTALINK);
+                        changeIfo1.putExtra("password",_PASSWORD);
+                        changeIfo1.putExtra("fav_artist",_FAVARTIST);
+                        changeIfo1.putExtra("fav_group",_FAVGROUP);
+                        startActivity(changeIfo1);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.search:
-                        startActivity(new Intent(getApplicationContext(),Search.class));
-                        overridePendingTransition(0,0);
+                        Intent changeIfo2 = new Intent(getApplicationContext(), Search.class);
+                        changeIfo2.putExtra("user_name", _USERNAME);
+                        changeIfo2.putExtra("gender", _GENDER);
+                        changeIfo2.putExtra("insta_id", _INSTALINK);
+                        changeIfo2.putExtra("password", _PASSWORD);
+                        changeIfo2.putExtra("fav_artist", _FAVARTIST);
+                        changeIfo2.putExtra("fav_group", _FAVGROUP);
+                        startActivity(changeIfo2);
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.profile:
                         Intent changeIfo3 = new Intent(getApplicationContext(), Profile.class);
@@ -114,8 +124,6 @@ public class Search extends AppCompatActivity {
                         changeIfo3.putExtra("password", _PASSWORD);
                         changeIfo3.putExtra("fav_artist", _FAVARTIST);
                         changeIfo3.putExtra("fav_group", _FAVGROUP);
-
-
                         startActivity(changeIfo3);
                         overridePendingTransition(0, 0);
                         return true;
@@ -123,5 +131,17 @@ public class Search extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("user_name", _USERNAME);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        _USERNAME = savedInstanceState.getString("user_name");
     }
 }

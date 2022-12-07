@@ -43,13 +43,14 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
+
         reference = FirebaseDatabase.getInstance().getReference("Users");
         recyclerView1 = findViewById(R.id.groups_added);
         recyclerView2 = findViewById(R.id.artists_added);
         addGroup = findViewById(R.id.addGroupBtn);
         addArtist = findViewById(R.id.addArtistBtn);
         databaseHelper = new MySQLiteOpenHelper(this);
-        // favoritelistModelArrayList = databaseHelper.getall;
+
         Intent intent = getIntent();
 
         _USERNAME = intent.getStringExtra("user_name");
@@ -59,6 +60,9 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
         _FAVARTIST = intent.getStringExtra("fav_artist");
         _FAVGROUP = intent.getStringExtra("fav_group");
 
+        if (savedInstanceState != null) {
+            _USERNAME = savedInstanceState.getString("user_name");
+        }
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.favorite);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -66,12 +70,26 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        Intent changeIfo = new Intent(getApplicationContext(),MainActivity.class);
+                        changeIfo.putExtra("user_name",_USERNAME);
+                        changeIfo.putExtra("gender",_GENDER);
+                        changeIfo.putExtra("insta_id",_INSTALINK);
+                        changeIfo.putExtra("password",_PASSWORD);
+                        changeIfo.putExtra("fav_artist",_FAVARTIST);
+                        changeIfo.putExtra("fav_group",_FAVGROUP);
+                        startActivity(changeIfo);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.favorite:
-                        startActivity(new Intent(getApplicationContext(),Favorite.class));
-                        overridePendingTransition(0,0);
+                        Intent changeIfo1 = new Intent(getApplicationContext(), Favorite.class);
+                        changeIfo1.putExtra("user_name", _USERNAME);
+                        changeIfo1.putExtra("gender", _GENDER);
+                        changeIfo1.putExtra("insta_id", _INSTALINK);
+                        changeIfo1.putExtra("password", _PASSWORD);
+                        changeIfo1.putExtra("fav_artist", _FAVARTIST);
+                        changeIfo1.putExtra("fav_group", _FAVGROUP);
+                        startActivity(changeIfo1);
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.search:
                         Intent changeIfo2 = new Intent(getApplicationContext(), Search.class);

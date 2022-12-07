@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
                         changeIfo.putExtra("password", _PASSWORD);
                         changeIfo.putExtra("fav_artist", _FAVARTIST);
                         changeIfo.putExtra("fav_group", _FAVGROUP);
-
-
                         startActivity(changeIfo);
                         overridePendingTransition(0, 0);
                         return true;
@@ -88,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
                         changeIfo1.putExtra("password", _PASSWORD);
                         changeIfo1.putExtra("fav_artist", _FAVARTIST);
                         changeIfo1.putExtra("fav_group", _FAVGROUP);
-
-
                         startActivity(changeIfo1);
                         overridePendingTransition(0, 0);
                         return true;
@@ -114,8 +110,6 @@ public class MainActivity extends AppCompatActivity {
                         changeIfo3.putExtra("password", _PASSWORD);
                         changeIfo3.putExtra("fav_artist", _FAVARTIST);
                         changeIfo3.putExtra("fav_group", _FAVGROUP);
-
-
                         startActivity(changeIfo3);
                         overridePendingTransition(0, 0);
                         return true;
@@ -135,6 +129,18 @@ public class MainActivity extends AppCompatActivity {
     public void newUserActivity(View v) {
         Intent i = new Intent(MainActivity.this, AddUser.class);
         startActivity(i);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("user_name", _USERNAME);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        _USERNAME = savedInstanceState.getString("user_name");
     }
 
 }

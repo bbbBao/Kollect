@@ -177,7 +177,6 @@ public class Profile extends AppCompatActivity {
                         changeIfo.putExtra("password",_PASSWORD);
                         changeIfo.putExtra("fav_artist",_FAVARTIST);
                         changeIfo.putExtra("fav_group",_FAVGROUP);
-
                         startActivity(changeIfo);
                         overridePendingTransition(0,0);
                         return true;
@@ -231,5 +230,4 @@ public class Profile extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         _USERNAME = savedInstanceState.getString("user_name");
     }
-
 }
