@@ -199,8 +199,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public ArrayList<Post> getSearchedArtistPosts(String artist_name ) {
-        String sqlQuery = "select * from " + TABLE_NAME_POSTS + " WHERE " + "artist_name" + " = ?";
+    public ArrayList<Post> getSearchedArtistPosts(String a_name ) {
+        String sqlQuery = "select * from " + TABLE_NAME_POSTS + " WHERE " + "artist_name" + " Like '%"+a_name+"%'";
 
 
         SQLiteDatabase db = this.getWritableDatabase( );

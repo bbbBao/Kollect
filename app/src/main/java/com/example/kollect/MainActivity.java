@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -51,7 +52,14 @@ public class MainActivity extends AppCompatActivity {
 
         customAdapterPosts = new CustomAdapterPosts(this,postModelArrayList);
         listView.setAdapter(customAdapterPosts);
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), UpdateandDeletePost.class);
+                intent.putExtra("user", postModelArrayList.get(position));
+                startActivity(intent);
+            }
+        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.home);
