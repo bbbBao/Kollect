@@ -37,10 +37,10 @@ Users can pay for the premium functionality by PayPal in order to add fraudulent
 ## :camera: Screenshots
 
 Login Page:
-![Login](/Screenshots/login.png)
+![Login](/screenshot/login.png)
 
 Profile Page:
-![Profile Page](/Screenshots/profile.png)
+![Profile Page](/screenshot/profile.png)
 
 ## :recycle: Environment
 
