@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class Premium extends AppCompatActivity {
-    private String _USERNAME, _GENDER, _INSTALINK, _PASSWORD, _FAVARTIST, _FAVGROUP;
+    private String _USERNAME;
     private EditText artist_name;
     private Button search_btn;
     private TextView lower_bound;
@@ -35,6 +35,8 @@ public class Premium extends AppCompatActivity {
     private CustomAdapterPosts customAdapterPosts;
     private MySQLiteOpenHelper databaseHelper;
     private ArrayList<Integer> PriceArrayList;
+    private TextView disable;
+    private Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +50,28 @@ public class Premium extends AppCompatActivity {
         mean = (TextView) findViewById(R.id.mean);
         median = (TextView) findViewById(R.id.median);
         predict = (TextView) findViewById(R.id.predict);
+        back = (Button) findViewById(R.id.button_back);
 
         Intent intent = getIntent();
 
         _USERNAME = intent.getStringExtra("user_name");
-        _GENDER = intent.getStringExtra("gender");
-        _INSTALINK = intent.getStringExtra("insta_id");
-        _PASSWORD = intent.getStringExtra("password");
-        _FAVARTIST = intent.getStringExtra("fav_artist");
-        _FAVGROUP = intent.getStringExtra("fav_group");
 
         databaseHelper = new MySQLiteOpenHelper(this);
 
+        boolean isPremium = databaseHelper.getPremium(_USERNAME);
+        if (!isPremium){
+            search_btn.setEnabled(false);
+            disable = findViewById(R.id.tv_disable);
+            disable.setText("Premium member only. Function has been disabled.");
+        }
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Premium.this, Profile.class);
+                intent.putExtra("user_name", _USERNAME);
+                startActivity(intent);
+            }
+        });
 
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,48 +94,6 @@ public class Premium extends AppCompatActivity {
                     Toast.makeText(Premium.this, "No such data found", Toast.LENGTH_LONG).show();
                 }
 
-
-
-
-
-            }
-        });
-
-
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.search);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.favorite:
-                        startActivity(new Intent(getApplicationContext(), Favorite.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.search:
-                        startActivity(new Intent(getApplicationContext(), Search.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.profile:
-                        Intent changeIfo = new Intent(getApplicationContext(), Profile.class);
-                        changeIfo.putExtra("user_name", _USERNAME);
-                        changeIfo.putExtra("gender", _GENDER);
-                        changeIfo.putExtra("insta_id", _INSTALINK);
-                        changeIfo.putExtra("password", _PASSWORD);
-                        changeIfo.putExtra("fav_artist", _FAVARTIST);
-                        changeIfo.putExtra("fav_group", _FAVGROUP);
-
-
-                        startActivity(changeIfo);
-                        overridePendingTransition(0, 0);
-                        return true;
-                }
-                return false;
             }
         });
     }

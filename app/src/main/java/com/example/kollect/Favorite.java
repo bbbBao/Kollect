@@ -55,19 +55,7 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.favorite:
-                        startActivity(new Intent(getApplicationContext(),Favorite.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.search:
-                        startActivity(new Intent(getApplicationContext(),Search.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.profile:
-                        Intent changeIfo = new Intent(getApplicationContext(), Profile.class);
+                        Intent changeIfo = new Intent(getApplicationContext(), MainActivity.class);
                         changeIfo.putExtra("user_name", _USERNAME);
                         changeIfo.putExtra("gender", _GENDER);
                         changeIfo.putExtra("insta_id", _INSTALINK);
@@ -75,8 +63,48 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
                         changeIfo.putExtra("fav_artist", _FAVARTIST);
                         changeIfo.putExtra("fav_group", _FAVGROUP);
 
+
                         startActivity(changeIfo);
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.favorite:
+                        Intent changeIfo1 = new Intent(getApplicationContext(), Favorite.class);
+                        changeIfo1.putExtra("user_name", _USERNAME);
+                        changeIfo1.putExtra("gender", _GENDER);
+                        changeIfo1.putExtra("insta_id", _INSTALINK);
+                        changeIfo1.putExtra("password", _PASSWORD);
+                        changeIfo1.putExtra("fav_artist", _FAVARTIST);
+                        changeIfo1.putExtra("fav_group", _FAVGROUP);
+
+
+                        startActivity(changeIfo1);
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.search:
+                        Intent changeIfo2 = new Intent(getApplicationContext(), Search.class);
+                        changeIfo2.putExtra("user_name", _USERNAME);
+                        changeIfo2.putExtra("gender", _GENDER);
+                        changeIfo2.putExtra("insta_id", _INSTALINK);
+                        changeIfo2.putExtra("password", _PASSWORD);
+                        changeIfo2.putExtra("fav_artist", _FAVARTIST);
+                        changeIfo2.putExtra("fav_group", _FAVGROUP);
+
+
+                        startActivity(changeIfo2);
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.profile:
+                        Intent changeIfo3 = new Intent(getApplicationContext(), Profile.class);
+                        changeIfo3.putExtra("user_name", _USERNAME);
+                        changeIfo3.putExtra("gender", _GENDER);
+                        changeIfo3.putExtra("insta_id", _INSTALINK);
+                        changeIfo3.putExtra("password", _PASSWORD);
+                        changeIfo3.putExtra("fav_artist", _FAVARTIST);
+                        changeIfo3.putExtra("fav_group", _FAVGROUP);
+
+
+                        startActivity(changeIfo3);
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;

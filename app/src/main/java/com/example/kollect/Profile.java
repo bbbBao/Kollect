@@ -96,7 +96,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent blacklist = new Intent(getApplicationContext(),BlacklistInterface.class);
-
+                blacklist.putExtra("user_name", _USERNAME);
                 startActivity(blacklist);
             }
         });
@@ -104,9 +104,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent blacklist = new Intent(getApplicationContext(),BlacklistInterface.class);
-
-
-
+                blacklist.putExtra("user_name", _USERNAME);
                 startActivity(blacklist);
             }
         });
@@ -133,6 +131,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent Premium = new Intent(getApplicationContext(), com.example.kollect.Premium.class);
+                Premium.putExtra("user_name", _USERNAME);
                 startActivity(Premium);
             }
         });
@@ -141,6 +140,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent Premium = new Intent(getApplicationContext(), com.example.kollect.Premium.class);
+                Premium.putExtra("user_name", _USERNAME);
                 startActivity(Premium);
             }
         });
@@ -159,7 +159,7 @@ public class Profile extends AppCompatActivity {
                     startActivity(likeIng);
                 } catch (ActivityNotFoundException e) {
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://google.com")));
+                            uri));
                 }
             }
         });
@@ -204,7 +204,14 @@ public class Profile extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
+                        Intent changeIfo4 = new Intent(getApplicationContext(),Profile.class);
+                        changeIfo4.putExtra("user_name",_USERNAME);
+                        changeIfo4.putExtra("gender",_GENDER);
+                        changeIfo4.putExtra("insta_id",_INSTALINK);
+                        changeIfo4.putExtra("password",_PASSWORD);
+                        changeIfo4.putExtra("fav_artist",_FAVARTIST);
+                        changeIfo4.putExtra("fav_group",_FAVGROUP);
+                        startActivity(changeIfo4);
                         overridePendingTransition(0,0);
                         return true;
                 }
