@@ -18,7 +18,7 @@ import java.sql.Connection;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String _USERNAME, _GENDER, _INSTALINK, _PASSWORD;
+    private String _USERNAME, _GENDER, _INSTALINK, _PASSWORD,_FAVARTIST,_FAVGROUP;
     private FirebaseDatabase myFirebasedata;
 
     @Override
@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         _GENDER = intent.getStringExtra("gender");
         _INSTALINK = intent.getStringExtra("insta_id");
         _PASSWORD = intent.getStringExtra("password");
+        _FAVARTIST = intent.getStringExtra("fav_artist");
+        _FAVGROUP = intent.getStringExtra("fav_group");
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                         changeIfo.putExtra("gender", _GENDER);
                         changeIfo.putExtra("insta_id", _INSTALINK);
                         changeIfo.putExtra("password", _PASSWORD);
+                        changeIfo.putExtra("fav_artist", _FAVARTIST);
+                        changeIfo.putExtra("fav_group", _FAVGROUP);
 
 
                         startActivity(changeIfo);

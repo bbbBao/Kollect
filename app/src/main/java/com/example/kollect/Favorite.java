@@ -24,6 +24,8 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
     private Button addGroup;
     private Button addArtist;
     private MySQLiteOpenHelper databaseHelper;
+    private String _USERNAME, _GENDER, _INSTALINK, _PASSWORD,_FAVARTIST,_FAVGROUP;
+
 
     //private ArrayList<favartistlist> FavartistlistModelArrayList;
 
@@ -37,6 +39,14 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
         addArtist = findViewById(R.id.addArtistBtn);
         databaseHelper = new MySQLiteOpenHelper(this);
         // favoritelistModelArrayList = databaseHelper.getall;
+        Intent intent = getIntent();
+
+        _USERNAME = intent.getStringExtra("user_name");
+        _GENDER = intent.getStringExtra("gender");
+        _INSTALINK = intent.getStringExtra("insta_id");
+        _PASSWORD = intent.getStringExtra("password");
+        _FAVARTIST = intent.getStringExtra("fav_artist");
+        _FAVGROUP = intent.getStringExtra("fav_group");
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.favorite);
@@ -57,7 +67,15 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
+                        Intent changeIfo = new Intent(getApplicationContext(), Profile.class);
+                        changeIfo.putExtra("user_name", _USERNAME);
+                        changeIfo.putExtra("gender", _GENDER);
+                        changeIfo.putExtra("insta_id", _INSTALINK);
+                        changeIfo.putExtra("password", _PASSWORD);
+                        changeIfo.putExtra("fav_artist", _FAVARTIST);
+                        changeIfo.putExtra("fav_group", _FAVGROUP);
+
+                        startActivity(changeIfo);
                         overridePendingTransition(0,0);
                         return true;
                 }
