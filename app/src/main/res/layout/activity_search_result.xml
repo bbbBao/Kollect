@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchResult"
-    android:background="#B9F6CA"
+    android:background="@color/content_bkg"
     android:padding="10dp"
     android:orientation="vertical">
 
