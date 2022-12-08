@@ -35,7 +35,6 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
     private MySQLiteOpenHelper databaseHelper;
     private String _USERNAME, _GENDER, _INSTALINK, _PASSWORD,_FAVARTIST,_FAVGROUP;
     DatabaseReference reference;
-    private RecyclerViewInterface recyclerViewInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -237,17 +236,20 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
     @Override
     public void onItemClick1(int position) {
         Intent intent = getIntent();
-        _FAVGROUP = intent.getStringExtra("fav_group");
+        _FAVGROUP = arrayList1.get(position);
         Intent intent2 = new Intent(Favorite.this, SearchResult.class);
-        intent.putExtra("g_name",_FAVGROUP);
-        startActivity(intent2);}
+        intent2.putExtra("g_name",_FAVGROUP);
+        Toast.makeText(Favorite.this,"fail to read",Toast.LENGTH_SHORT).show();
+        startActivity(intent2);
+    }
 
     @Override
     public void onItemClick2(int position) {
         Intent intent = getIntent();
-        _FAVARTIST = intent.getStringExtra("fav_artist");
+        _FAVARTIST = arrayList2.get(position);
         Intent intent2 = new Intent(Favorite.this, SearchResult.class);
-        intent.putExtra("a_name",_FAVARTIST);
+        intent2.putExtra("a_name",_FAVARTIST);
+        Toast.makeText(Favorite.this,"fail to read",Toast.LENGTH_SHORT).show();
         startActivity(intent2);
     }
 }
