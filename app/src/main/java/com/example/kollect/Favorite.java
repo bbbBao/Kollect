@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Favorite extends AppCompatActivity implements AddFavoriteDialog.AddFavoriteDialogListener {
+public class Favorite extends AppCompatActivity implements RecyclerViewInterface, AddFavoriteDialog.AddFavoriteDialogListener {
     private RecyclerView recyclerView1;
     private ArrayList<String> arrayList1;
     private ArrayList<String> arrayList2;
@@ -35,10 +35,7 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
     private MySQLiteOpenHelper databaseHelper;
     private String _USERNAME, _GENDER, _INSTALINK, _PASSWORD,_FAVARTIST,_FAVGROUP;
     DatabaseReference reference;
-
-
-    //private ArrayList<favartistlist> FavartistlistModelArrayList;
-
+    private RecyclerViewInterface recyclerViewInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,10 +114,17 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
                 return false;
             }
         });
-        readData(_USERNAME);
+        readData();
 
     }
-    private void readData(String _USERNAME){
+    private void readData(){
+        Intent intent= getIntent();
+        _USERNAME = intent.getStringExtra("user_name");
+        _GENDER = intent.getStringExtra("gender");
+        _INSTALINK = intent.getStringExtra("insta_id");
+        _PASSWORD = intent.getStringExtra("password");
+        _FAVARTIST = intent.getStringExtra("fav_artist");
+        _FAVGROUP = intent.getStringExtra("fav_group");
         reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(_USERNAME).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -135,13 +139,12 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
                         String s2[]=favartist.split(";");
                         arrayList2 = new ArrayList<String>(Arrays.asList(s2));
                         recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-                        favGroupAdapter myAdapter = new favGroupAdapter(arrayList1);
+                        favGroupAdapter myAdapter = new favGroupAdapter(arrayList1,Favorite.this);
                         recyclerView1.setAdapter(myAdapter);
 
                         recyclerView2.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-                        favGroupAdapter myAdapter2 = new favGroupAdapter(arrayList2);
+                        favGroupAdapter myAdapter2 = new favGroupAdapter(arrayList2,Favorite.this);
                         recyclerView2.setAdapter(myAdapter2);
-
                         addGroup.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -183,7 +186,7 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
                             String s1[] = favgroup.split(";");
                             arrayList1 = new ArrayList<String>(Arrays.asList(s1));
                             recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-                            favGroupAdapter myAdapter = new favGroupAdapter(arrayList1);
+                            favGroupAdapter myAdapter = new favGroupAdapter(arrayList1,Favorite.this);
                             recyclerView1.setAdapter(myAdapter);
                         }else{
                             Toast.makeText(Favorite.this,"User doesn't exist",Toast.LENGTH_SHORT).show();
@@ -207,7 +210,7 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
                             String s2[]=favartist.split(";");
                             arrayList2 = new ArrayList<String>(Arrays.asList(s2));
                             recyclerView2.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-                            favGroupAdapter myAdapter2 = new favGroupAdapter(arrayList2);
+                            favGroupAdapter myAdapter2 = new favGroupAdapter(arrayList2,Favorite.this);
                             recyclerView2.setAdapter(myAdapter2);
                         }else{
                             Toast.makeText(Favorite.this,"User doesn't exist",Toast.LENGTH_SHORT).show();
@@ -231,4 +234,20 @@ public class Favorite extends AppCompatActivity implements AddFavoriteDialog.Add
         _USERNAME = savedInstanceState.getString("user_name");
     }
 
+    @Override
+    public void onItemClick1(int position) {
+        Intent intent = getIntent();
+        _FAVGROUP = intent.getStringExtra("fav_group");
+        Intent intent2 = new Intent(Favorite.this, SearchResult.class);
+        intent.putExtra("g_name",_FAVGROUP);
+        startActivity(intent2);}
+
+    @Override
+    public void onItemClick2(int position) {
+        Intent intent = getIntent();
+        _FAVARTIST = intent.getStringExtra("fav_artist");
+        Intent intent2 = new Intent(Favorite.this, SearchResult.class);
+        intent.putExtra("a_name",_FAVARTIST);
+        startActivity(intent2);
+    }
 }

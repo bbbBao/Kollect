@@ -43,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
         _PASSWORD = intent.getStringExtra("password");
         _FAVARTIST = intent.getStringExtra("fav_artist");
         _FAVGROUP = intent.getStringExtra("fav_group");
-
+        if (savedInstanceState != null) {
+            _USERNAME = savedInstanceState.getString("user_name");
+        }
         listView = (ListView) findViewById(R.id.listview);
 
         databaseHelper = new MySQLiteOpenHelper(this);
