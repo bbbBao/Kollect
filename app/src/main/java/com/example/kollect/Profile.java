@@ -60,7 +60,6 @@ public class Profile extends AppCompatActivity {
             _USERNAME = savedInstanceState.getString("user_name");
 
         }
-
         username.setText(_USERNAME);
         change_info_txt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,4 +229,5 @@ public class Profile extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         _USERNAME = savedInstanceState.getString("user_name");
     }
+
 }

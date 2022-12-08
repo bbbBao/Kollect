@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,26 +16,26 @@ import com.paypal.pyplcheckout.interfaces.SelectedListener;
 
 import java.util.ArrayList;
 
-public class favGroupAdapter extends RecyclerView.Adapter<favGroupAdapter.MyViewHolder>{
-    private final RecyclerViewInterface recyclerViewInterface;
+public class favArtistAdapter extends RecyclerView.Adapter<favArtistAdapter.MyViewHolder>{
+    private final RecyclerViewInterface2 recyclerViewInterface2;
     private ArrayList<String> arrayList;
-    public favGroupAdapter(ArrayList<String> arrayList, RecyclerViewInterface recyclerViewInterface){
+    public favArtistAdapter(ArrayList<String> arrayList, RecyclerViewInterface2 recyclerViewInterface2){
         this.arrayList = arrayList;
-        this.recyclerViewInterface = recyclerViewInterface;
+        this.recyclerViewInterface2 = recyclerViewInterface2;
     }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        
-        View v = layoutInflater.inflate(R.layout.favorite_group_row_item,parent,false);
-        return new MyViewHolder(v,recyclerViewInterface);
+
+        View v = layoutInflater.inflate(R.layout.favorite_artist_row_item,parent,false);
+        return new MyViewHolder(v,recyclerViewInterface2);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.group_id.setText(arrayList.get(position).toString());
+        holder.artist_id.setText(arrayList.get(position).toString());
     }
     @Override
     public int getItemCount() {
@@ -44,19 +43,19 @@ public class favGroupAdapter extends RecyclerView.Adapter<favGroupAdapter.MyView
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public CardView cardView;
-        public TextView group_id;
+        public TextView artist_id;
 
-        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface2 recyclerViewInterface2) {
             super(itemView);
-            group_id = itemView.findViewById(R.id.fav_group_id);
-            cardView = itemView.findViewById(R.id.cardView_group);
+            artist_id = itemView.findViewById(R.id.fav_artist_id);
+            cardView = itemView.findViewById(R.id.cardView_artist);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (recyclerViewInterface != null) {
+                    if (recyclerViewInterface2 != null) {
                         int postion = getAdapterPosition();
                         if (postion != RecyclerView.NO_POSITION) {
-                                recyclerViewInterface.onItemClick1(postion);
+                            recyclerViewInterface2.onItemClick2(postion);
                         }
                     }
                 }

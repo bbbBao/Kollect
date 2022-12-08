@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class SearchResult extends AppCompatActivity {
+public class FavoriteResult extends AppCompatActivity {
     private ListView listView;
     private ArrayList<Post> userModelArrayList;
     private CustomAdapterPosts customAdapterPosts;
