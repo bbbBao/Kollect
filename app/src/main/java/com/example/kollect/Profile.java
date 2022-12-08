@@ -144,6 +144,24 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        completed_purchase_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent CompletedPost = new Intent(getApplicationContext(), com.example.kollect.CompletedPost.class);
+                CompletedPost.putExtra("user_name", _USERNAME);
+                startActivity(CompletedPost);
+            }
+        });
+
+        completed_purchase_arr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent CompletedPost = new Intent(getApplicationContext(), com.example.kollect.CompletedPost.class);
+                CompletedPost.putExtra("user_name", _USERNAME);
+                startActivity(CompletedPost);
+            }
+        });
+
         instaButton = findViewById(R.id.instagram_btn);
         instaButton.setOnClickListener(new View.OnClickListener() {
             @Override
