@@ -35,7 +35,14 @@
                 android:layout_height="wrap_content"
                 android:text="add a new group"
                 android:textAllCaps="false" />
-
+            <TextView
+                android:id="@+id/tv_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Please Add Your Favorite Group Here"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:visibility="invisible" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/groups_added"
                 android:layout_width="match_parent"
@@ -54,7 +61,14 @@
                 android:layout_height="wrap_content"
                 android:text="add a new artist"
                 android:textAllCaps="false" />
-
+            <TextView
+                android:id="@+id/tv_no_data2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Please Add Your Favorite Artist Here"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:visibility="invisible" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/artists_added"
                 android:layout_width="match_parent"

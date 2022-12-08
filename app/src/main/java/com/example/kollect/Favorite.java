@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,17 +28,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class Favorite extends AppCompatActivity implements RecyclerViewInterface,RecyclerViewInterface2, AddFavoriteDialog.AddFavoriteDialogListener {
+public class Favorite extends AppCompatActivity implements RecyclerViewInterface,RecyclerViewInterface2, AddFavoriteDialog.AddFavoriteDialogListener, AddFavoriteArtistDialog.AddFavoriteArtistDialogListener {
     private RecyclerView recyclerView1;
     private ArrayList<String> arrayList1;
     private ArrayList<String> arrayList2;
     private RecyclerView recyclerView2;
     private String group_name;
     private String artist_name;
+    private TextView nogroup;
+    private TextView noartist;
     private Button addGroup;
     private Button addArtist;
     private MySQLiteOpenHelper databaseHelper;
     private String _USERNAME, _GENDER, _INSTALINK, _PASSWORD,_FAVARTIST,_FAVGROUP;
+    private favArtistAdapter adapter1;
+    private favGroupAdapter adapter2;
     DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +55,8 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
         addGroup = findViewById(R.id.addGroupBtn);
         addArtist = findViewById(R.id.addArtistBtn);
         databaseHelper = new MySQLiteOpenHelper(this);
-
+        nogroup = findViewById(R.id.tv_no_data);
+        noartist = findViewById(R.id.tv_no_data2);
         Intent intent = getIntent();
 
         _USERNAME = intent.getStringExtra("user_name");
@@ -72,27 +79,36 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                         String favgroup = String.valueOf(dataSnapshot.child("fav_group").getValue());
                         String s1[] = favgroup.split(";");
                         arrayList1 = new ArrayList<String>(Arrays.asList(s1));
-                        recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-                        favGroupAdapter myAdapter = new favGroupAdapter(arrayList1,Favorite.this);
-                        recyclerView1.setAdapter(myAdapter);
+                        if(arrayList1.isEmpty()){
+                            nogroup.setVisibility(View.VISIBLE);
+                        }else{
+                            recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+                            favGroupAdapter myAdapter = new favGroupAdapter(arrayList1, Favorite.this);
+                            recyclerView1.setAdapter(myAdapter);
+                        }
                         String favartist = String.valueOf(dataSnapshot.child("fav_artist").getValue());
-                        String s2[]=favartist.split(";");
+                        String s2[] = favartist.split(";");
                         arrayList2 = new ArrayList<String>(Arrays.asList(s2));
+                        if(arrayList2.isEmpty()){
+                            noartist.setVisibility(View.VISIBLE);
+                        }else{
                         recyclerView2.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-                        favArtistAdapter myAdapter2 = new favArtistAdapter(arrayList2,Favorite.this);
+                        favArtistAdapter myAdapter2 = new favArtistAdapter(arrayList2, Favorite.this);
                         recyclerView2.setAdapter(myAdapter2);
                         addGroup.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                openDialog();
+                                openDialog1();
                             }
                         });
                         addArtist.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                openDialog();
+                                openDialog2();
                             }
                         });
+                        }
+
                     }else{
                         Toast.makeText(Favorite.this,"User doesn't exist",Toast.LENGTH_SHORT).show();
                     }
@@ -100,7 +116,10 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                     Toast.makeText(Favorite.this,"fail to read",Toast.LENGTH_SHORT).show();
                 }
             }
-        });        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        });
+
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.favorite);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -155,16 +174,16 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
             }
         });
     }
-    private void readData(){
-
-    }
-    public void openDialog(){
+    public void openDialog1(){
         AddFavoriteDialog addFavoriteDialog = new AddFavoriteDialog();
-        addFavoriteDialog.show(getSupportFragmentManager(),"example dialog");
+        addFavoriteDialog.show(getSupportFragmentManager(),"example group dialog");
+    }
+    public void openDialog2(){
+        AddFavoriteArtistDialog addFavoriteArtistDialog = new AddFavoriteArtistDialog();
+        addFavoriteArtistDialog.show(getSupportFragmentManager(),"example artist dialog");
     }
     @Override
-    public void applyTexts(String groupname, Switch what) {
-        if(!what.isChecked()){
+    public void applyTexts1(String groupname) {
             reference.child(_USERNAME).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -172,7 +191,8 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                         if(task.getResult().exists()){
                             DataSnapshot dataSnapshot = task.getResult();
                             String favgroup = String.valueOf(dataSnapshot.child("fav_group").getValue());
-                            favgroup += ";"+groupname;
+                            if(favgroup.equals("")){favgroup+=groupname;}else{
+                                favgroup +=";"+groupname;}
                             reference.child(_USERNAME).child("fav_group").setValue(favgroup);
                             String s1[] = favgroup.split(";");
                             arrayList1 = new ArrayList<String>(Arrays.asList(s1));
@@ -186,9 +206,9 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                         Toast.makeText(Favorite.this,"fail to read",Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
-
-        }else{
+            });}
+        @Override
+        public void applyTexts2(String groupname) {
             reference.child(_USERNAME).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -196,7 +216,8 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                         if(task.getResult().exists()){
                             DataSnapshot dataSnapshot = task.getResult();
                             String favartist = String.valueOf(dataSnapshot.child("fav_artist").getValue());
-                            favartist += ";"+groupname;
+                            if(favartist.equals("")){favartist+=groupname;}else{
+                            favartist +=";"+groupname;}
                             reference.child(_USERNAME).child("fav_artist").setValue(favartist);
                             String s2[]=favartist.split(";");
                             arrayList2 = new ArrayList<String>(Arrays.asList(s2));
@@ -211,7 +232,7 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                     }
                 }
             });
-        }
+
     }
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -234,10 +255,69 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
     }
 
     @Override
+    public void onItemLongClick1(int position) {
+        reference.child(_USERNAME).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful()){
+                    if(task.getResult().exists()){
+                        DataSnapshot dataSnapshot = task.getResult();
+                        String favgroup = String.valueOf(dataSnapshot.child("fav_group").getValue());
+                        String s1[] = favgroup.split(";");
+                        arrayList1 = new ArrayList<String>(Arrays.asList(s1));
+                        arrayList1.remove(position);
+                        String str1 = TextUtils.join(";",arrayList1);
+                        reference.child(_USERNAME).child("fav_group").setValue(str1);
+                        recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+                        favGroupAdapter myAdapter = new favGroupAdapter(arrayList1,Favorite.this);
+                        myAdapter.notifyItemRemoved(position);
+                        recyclerView1.setAdapter(myAdapter);
+                    }else{
+                        Toast.makeText(Favorite.this,"User doesn't exist",Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(Favorite.this,"fail to read",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    @Override
     public void onItemClick2(int position) {
         artist_name = arrayList2.get(position);
         Intent intent = new Intent(Favorite.this,FavoriteResult.class);
         intent.putExtra("a_name",artist_name);
         startActivity(intent);
     }
+
+    @Override
+    public void onItemLongClick2(int position) {
+        reference.child(_USERNAME).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        @Override
+        public void onComplete(@NonNull Task<DataSnapshot> task) {
+            if(task.isSuccessful()){
+                if(task.getResult().exists()){
+                    DataSnapshot dataSnapshot = task.getResult();
+                    String favartist = String.valueOf(dataSnapshot.child("fav_artist").getValue());
+                    String s2[]=favartist.split(";");
+                    arrayList2 = new ArrayList<String>(Arrays.asList(s2));
+                    arrayList2.remove(position);
+                    String str2 = TextUtils.join(";",arrayList2);
+                    reference.child(_USERNAME).child("fav_artist").setValue(str2);
+                    recyclerView2.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+                    favArtistAdapter myAdapter2 = new favArtistAdapter(arrayList2,Favorite.this);
+                    myAdapter2.notifyItemRemoved(position);
+                    recyclerView2.setAdapter(myAdapter2);
+                }else{
+                    Toast.makeText(Favorite.this,"User doesn't exist",Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(Favorite.this,"fail to read",Toast.LENGTH_SHORT).show();
+            }
+        }
+    });
+    }
+
+
 }

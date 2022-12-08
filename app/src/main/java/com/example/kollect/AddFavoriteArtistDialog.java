@@ -13,10 +13,9 @@ import android.widget.Switch;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class AddFavoriteDialog extends AppCompatDialogFragment {
+public class AddFavoriteArtistDialog extends AppCompatDialogFragment {
     private EditText editgroup;
-    private Switch addwhat;
-    private AddFavoriteDialogListener addFavoriteDialogListener;
+    private AddFavoriteArtistDialogListener addFavoriteArtistDialogListener;
     @Override
     public Dialog onCreateDialog(Bundle saveInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -33,24 +32,25 @@ public class AddFavoriteDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String groupname = editgroup.getText().toString();
-                        addFavoriteDialogListener.applyTexts1(groupname);
+                        addFavoriteArtistDialogListener.applyTexts2(groupname);
                     }
                 });
         editgroup = view.findViewById(R.id.editgroup);
         return builder.create();
+
     }
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            addFavoriteDialogListener = (AddFavoriteDialogListener) context;
+            addFavoriteArtistDialogListener = (AddFavoriteArtistDialogListener) context;
         }catch(ClassCastException e){
             throw new ClassCastException(context.toString()+
                     "must implement AddGroupDialogListener");
         }
     }
-    public interface AddFavoriteDialogListener{
-        void applyTexts1(String groupname);
+    public interface AddFavoriteArtistDialogListener{
+        void applyTexts2(String groupname);
     }
 
 }

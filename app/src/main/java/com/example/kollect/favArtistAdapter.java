@@ -59,8 +59,19 @@ public class favArtistAdapter extends RecyclerView.Adapter<favArtistAdapter.MyVi
                         }
                     }
                 }
-            })
-            ;
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (recyclerViewInterface2 != null) {
+                        int postion = getAdapterPosition();
+                        if (postion != RecyclerView.NO_POSITION) {
+                            recyclerViewInterface2.onItemLongClick2(postion);
+                        }
+                    }
+                    return true;
+                }
+            });
         }
     }
 }

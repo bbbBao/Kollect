@@ -60,8 +60,19 @@ public class favGroupAdapter extends RecyclerView.Adapter<favGroupAdapter.MyView
                         }
                     }
                 }
-            })
-            ;
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (recyclerViewInterface != null) {
+                        int postion = getAdapterPosition();
+                        if (postion != RecyclerView.NO_POSITION) {
+                            recyclerViewInterface.onItemLongClick1(postion);
+                        }
+                    }
+                    return true;
+                }
+            });
         }
     }
 }
