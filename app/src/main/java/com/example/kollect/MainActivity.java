@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
                         changeIfo2.putExtra("password", _PASSWORD);
                         changeIfo2.putExtra("fav_artist", _FAVARTIST);
                         changeIfo2.putExtra("fav_group", _FAVGROUP);
-
-
                         startActivity(changeIfo2);
                         overridePendingTransition(0, 0);
                         return true;

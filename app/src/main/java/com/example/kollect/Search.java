@@ -91,8 +91,15 @@ public class Search extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        overridePendingTransition(0,0);
+                        Intent changeIfo = new Intent(getApplicationContext(), MainActivity.class);
+                        changeIfo.putExtra("user_name", _USERNAME);
+                        changeIfo.putExtra("gender", _GENDER);
+                        changeIfo.putExtra("insta_id", _INSTALINK);
+                        changeIfo.putExtra("password", _PASSWORD);
+                        changeIfo.putExtra("fav_artist", _FAVARTIST);
+                        changeIfo.putExtra("fav_group", _FAVGROUP);
+                        startActivity(changeIfo);
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.favorite:
                         Intent changeIfo1 = new Intent(getApplicationContext(),Favorite.class);
