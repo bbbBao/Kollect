@@ -47,12 +47,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/dark" />
 
-            <Switch
-                android:id="@+id/staSwt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="9" />
-
         </LinearLayout>
 
         <ImageView

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CCFF90"
+    android:background="@color/content_bkg"
     android:orientation="vertical"
     tools:context="com.example.kollect.UpdateandDeletePost">
 
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:text="Seller Name"
         android:textColor="#8C9EFF"
         android:textSize="20sp" />
@@ -89,22 +89,15 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="Price"
+        android:text="Status"
         android:textColor="#8C9EFF"
         android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/etstatus"
-        android:inputType="number"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:background="#fff"
-        android:hint="Enter Satus" />
 
-
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="62dp"
+        android:layout_height="53dp" />
 
     <Button
         android:id="@+id/btnupdate"

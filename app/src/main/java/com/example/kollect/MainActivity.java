@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHelper = new MySQLiteOpenHelper(this);
 
-        postModelArrayList = databaseHelper.getAllPosts();
+        postModelArrayList = databaseHelper.getSelectedPosts();
 
         customAdapterPosts = new CustomAdapterPosts(this,postModelArrayList);
         listView.setAdapter(customAdapterPosts);

@@ -172,6 +172,32 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
+    public ArrayList<Post> getSelectedPosts( ) {
+        String sqlQuery = "select * from " + TABLE_NAME_POSTS + " where status = 1";
+
+        SQLiteDatabase db = this.getWritableDatabase( );
+        Cursor cursor = db.rawQuery( sqlQuery, null );
+
+        ArrayList<Post> posts = new ArrayList<Post>( );
+        while( cursor.moveToNext( ) ) {
+            Post post
+                    = new Post();
+            post.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            post.setSellerName(cursor.getString(cursor.getColumnIndex("seller_name")));
+            post.setArtistname(cursor.getString(cursor.getColumnIndex("artist_name")));
+            post.setGroups(cursor.getString(cursor.getColumnIndex("artist_group")));
+            post.setStatus(cursor.getInt(cursor.getColumnIndex("status")));
+            post.setPrice(cursor.getInt(cursor.getColumnIndex("price")));
+            post.setUserID(cursor.getInt(cursor.getColumnIndex("user_id")));
+            post.setImages(cursor.getBlob(cursor.getColumnIndex("post_images")));
+
+            posts.add(post);
+        }
+        db.close( );
+        return posts;
+    }
+
+    @SuppressLint("Range")
     public ArrayList<Post> getSearchedGroupPosts(String group_name ) {
         String sqlQuery = "select * from " + TABLE_NAME_POSTS + " WHERE " + "artist_group" + " Like '%"+group_name+"%'";
 
