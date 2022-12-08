@@ -1,10 +1,12 @@
 package com.example.kollect;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -77,24 +79,24 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                     if(task.getResult().exists()){
                         DataSnapshot dataSnapshot = task.getResult();
                         String favgroup = String.valueOf(dataSnapshot.child("fav_group").getValue());
-                        String s1[] = favgroup.split(";");
-                        arrayList1 = new ArrayList<String>(Arrays.asList(s1));
-                        if(arrayList1.isEmpty()){
+                        if(favgroup.equals("")){
                             nogroup.setVisibility(View.VISIBLE);
                         }else{
+                            String s1[] = favgroup.split(";");
+                            arrayList1 = new ArrayList<String>(Arrays.asList(s1));
                             recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
                             favGroupAdapter myAdapter = new favGroupAdapter(arrayList1, Favorite.this);
                             recyclerView1.setAdapter(myAdapter);
                         }
                         String favartist = String.valueOf(dataSnapshot.child("fav_artist").getValue());
-                        String s2[] = favartist.split(";");
-                        arrayList2 = new ArrayList<String>(Arrays.asList(s2));
-                        if(arrayList2.isEmpty()){
+                        if(favartist.isEmpty()){
                             noartist.setVisibility(View.VISIBLE);
                         }else{
+                            String s2[] = favartist.split(";");
+                            arrayList2 = new ArrayList<String>(Arrays.asList(s2));
                         recyclerView2.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
                         favArtistAdapter myAdapter2 = new favArtistAdapter(arrayList2, Favorite.this);
-                        recyclerView2.setAdapter(myAdapter2);
+                        recyclerView2.setAdapter(myAdapter2);}
                         addGroup.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -107,7 +109,6 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                                 openDialog2();
                             }
                         });
-                        }
 
                     }else{
                         Toast.makeText(Favorite.this,"User doesn't exist",Toast.LENGTH_SHORT).show();
@@ -261,6 +262,12 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful()){
                     if(task.getResult().exists()){
+                        CharSequence[] delete = {"Delete"};
+                        AlertDialog.Builder alert = new AlertDialog.Builder(Favorite.this);
+                        alert.setItems(delete, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(which==0){
                         DataSnapshot dataSnapshot = task.getResult();
                         String favgroup = String.valueOf(dataSnapshot.child("fav_group").getValue());
                         String s1[] = favgroup.split(";");
@@ -272,6 +279,10 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                         favGroupAdapter myAdapter = new favGroupAdapter(arrayList1,Favorite.this);
                         myAdapter.notifyItemRemoved(position);
                         recyclerView1.setAdapter(myAdapter);
+                                }
+                            }
+                        });
+                        alert.create().show();
                     }else{
                         Toast.makeText(Favorite.this,"User doesn't exist",Toast.LENGTH_SHORT).show();
                     }
@@ -298,17 +309,27 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
         public void onComplete(@NonNull Task<DataSnapshot> task) {
             if(task.isSuccessful()){
                 if(task.getResult().exists()){
-                    DataSnapshot dataSnapshot = task.getResult();
-                    String favartist = String.valueOf(dataSnapshot.child("fav_artist").getValue());
-                    String s2[]=favartist.split(";");
-                    arrayList2 = new ArrayList<String>(Arrays.asList(s2));
-                    arrayList2.remove(position);
-                    String str2 = TextUtils.join(";",arrayList2);
-                    reference.child(_USERNAME).child("fav_artist").setValue(str2);
-                    recyclerView2.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-                    favArtistAdapter myAdapter2 = new favArtistAdapter(arrayList2,Favorite.this);
-                    myAdapter2.notifyItemRemoved(position);
-                    recyclerView2.setAdapter(myAdapter2);
+                    CharSequence[] delete = {"Delete"};
+                    AlertDialog.Builder alert = new AlertDialog.Builder(Favorite.this);
+                    alert.setItems(delete, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(which==0){
+                               DataSnapshot dataSnapshot = task.getResult();
+                                String favartist = String.valueOf(dataSnapshot.child("fav_artist").getValue());
+                                String s2[]=favartist.split(";");
+                                arrayList2 = new ArrayList<String>(Arrays.asList(s2));
+                                arrayList2.remove(position);
+                                String str2 = TextUtils.join(";",arrayList2);
+                                reference.child(_USERNAME).child("fav_artist").setValue(str2);
+                                recyclerView2.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+                                favArtistAdapter myAdapter2 = new favArtistAdapter(arrayList2,Favorite.this);
+                                myAdapter2.notifyItemRemoved(position);
+                                recyclerView2.setAdapter(myAdapter2);
+                            }
+                        }
+                    });
+                    alert.create().show();
                 }else{
                     Toast.makeText(Favorite.this,"User doesn't exist",Toast.LENGTH_SHORT).show();
                 }
@@ -318,6 +339,4 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
         }
     });
     }
-
-
 }
