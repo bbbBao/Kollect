@@ -43,6 +43,7 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
     private Button addArtist;
     private MySQLiteOpenHelper databaseHelper;
     private String _USERNAME, _GENDER, _INSTALINK, _PASSWORD,_FAVARTIST,_FAVGROUP;
+    private long _PREMIUM;
     private favArtistAdapter adapter1;
     private favGroupAdapter adapter2;
     DatabaseReference reference;
@@ -67,6 +68,7 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
         _PASSWORD = intent.getStringExtra("password");
         _FAVARTIST = intent.getStringExtra("fav_artist");
         _FAVGROUP = intent.getStringExtra("fav_group");
+        _PREMIUM = intent.getLongExtra("premium", 0);
 
         if (savedInstanceState != null) {
             _USERNAME = savedInstanceState.getString("user_name");
@@ -134,6 +136,7 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                         changeIfo.putExtra("password",_PASSWORD);
                         changeIfo.putExtra("fav_artist",_FAVARTIST);
                         changeIfo.putExtra("fav_group",_FAVGROUP);
+                        changeIfo.putExtra("premium",_PREMIUM);
                         startActivity(changeIfo);
                         overridePendingTransition(0,0);
                         return true;
@@ -145,6 +148,7 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                         changeIfo1.putExtra("password", _PASSWORD);
                         changeIfo1.putExtra("fav_artist", _FAVARTIST);
                         changeIfo1.putExtra("fav_group", _FAVGROUP);
+                        changeIfo1.putExtra("premium",_PREMIUM);
                         startActivity(changeIfo1);
                         overridePendingTransition(0, 0);
                         return true;
@@ -156,6 +160,7 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                         changeIfo2.putExtra("password", _PASSWORD);
                         changeIfo2.putExtra("fav_artist", _FAVARTIST);
                         changeIfo2.putExtra("fav_group", _FAVGROUP);
+                        changeIfo2.putExtra("premium",_PREMIUM);
                         startActivity(changeIfo2);
                         overridePendingTransition(0, 0);
                         return true;
@@ -167,6 +172,7 @@ public class Favorite extends AppCompatActivity implements RecyclerViewInterface
                         changeIfo3.putExtra("password", _PASSWORD);
                         changeIfo3.putExtra("fav_artist", _FAVARTIST);
                         changeIfo3.putExtra("fav_group", _FAVGROUP);
+                        changeIfo3.putExtra("premium",_PREMIUM);
                         startActivity(changeIfo3);
                         overridePendingTransition(0, 0);
                         return true;

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -51,8 +52,12 @@ public class SearchResult extends AppCompatActivity {
         }else if (blacklist_name != null){
             blacklistModelArrayList = databaseHelper.getSearchedBlacklistPosts(blacklist_name);
             customAdapterBlacklist = new CustomAdapterBlacklist(this,blacklistModelArrayList);
-            listView.setAdapter(customAdapterBlacklist);}
-        customAdapterPosts = new CustomAdapterPosts(this,userModelArrayList);
-        listView.setAdapter(customAdapterPosts);
+            listView.setAdapter(customAdapterBlacklist);
+        }else{
+            Toast.makeText(this, "No result found", Toast.LENGTH_SHORT).show();
+        }
+
+//        customAdapterPosts = new CustomAdapterPosts(this,userModelArrayList);
+//        listView.setAdapter(customAdapterPosts);
     }
 }

@@ -29,6 +29,7 @@ public class Profile extends AppCompatActivity {
     private ImageView blacklist_arr;
     private Button instaButton;
     private String _USERNAME,_GENDER,_INSTALINK,_PASSWORD,_FAVARTIST,_FAVGROUP;
+    private long _PREMIUM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class Profile extends AppCompatActivity {
         _PASSWORD = intent.getStringExtra("password");
         _FAVARTIST = intent.getStringExtra("fav_artist");
         _FAVGROUP = intent.getStringExtra("fav_group");
+        _PREMIUM = intent.getLongExtra("premium",0);
 
         if (savedInstanceState != null) {
             _USERNAME = savedInstanceState.getString("user_name");
@@ -72,6 +74,7 @@ public class Profile extends AppCompatActivity {
                 changeIfo.putExtra("password",_PASSWORD);
                 changeIfo.putExtra("fav_artist",_FAVARTIST);
                 changeIfo.putExtra("fav_group",_FAVGROUP);
+                changeIfo.putExtra("premium",_PREMIUM);
                 startActivity(changeIfo);
             }
         });
@@ -86,6 +89,7 @@ public class Profile extends AppCompatActivity {
                 changeIfo.putExtra("password",_PASSWORD);
                 changeIfo.putExtra("fav_artist",_FAVARTIST);
                 changeIfo.putExtra("fav_group",_FAVGROUP);
+                changeIfo.putExtra("premium",_PREMIUM);
 
                 startActivity(changeIfo);
             }
@@ -96,6 +100,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View view) {
                 Intent blacklist = new Intent(getApplicationContext(),BlacklistInterface.class);
                 blacklist.putExtra("user_name", _USERNAME);
+                blacklist.putExtra("premium",_PREMIUM);
                 startActivity(blacklist);
             }
         });
@@ -104,6 +109,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View view) {
                 Intent blacklist = new Intent(getApplicationContext(),BlacklistInterface.class);
                 blacklist.putExtra("user_name", _USERNAME);
+                blacklist.putExtra("premium",_PREMIUM);
                 startActivity(blacklist);
             }
         });
@@ -113,6 +119,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View view) {
                 Intent getPremium = new Intent(getApplicationContext(),GetPremium.class);
                 getPremium.putExtra("user_name", _USERNAME);
+                getPremium.putExtra("premium",_PREMIUM);
                 startActivity(getPremium);
             }
         });
@@ -121,6 +128,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View view) {
                 Intent getPremium = new Intent(getApplicationContext(),GetPremium.class);
                 getPremium.putExtra("user_name", _USERNAME);
+                getPremium.putExtra("premium",_PREMIUM);
                 startActivity(getPremium);
             }
         });
@@ -131,6 +139,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent Premium = new Intent(getApplicationContext(), com.example.kollect.Premium.class);
                 Premium.putExtra("user_name", _USERNAME);
+                Premium.putExtra("premium",_PREMIUM);
                 startActivity(Premium);
             }
         });
@@ -140,6 +149,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent Premium = new Intent(getApplicationContext(), com.example.kollect.Premium.class);
                 Premium.putExtra("user_name", _USERNAME);
+                Premium.putExtra("premium",_PREMIUM);
                 startActivity(Premium);
             }
         });
@@ -149,6 +159,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent CompletedPost = new Intent(getApplicationContext(), com.example.kollect.CompletedPost.class);
                 CompletedPost.putExtra("user_name", _USERNAME);
+                CompletedPost.putExtra("premium",_PREMIUM);
                 startActivity(CompletedPost);
             }
         });
@@ -158,6 +169,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent CompletedPost = new Intent(getApplicationContext(), com.example.kollect.CompletedPost.class);
                 CompletedPost.putExtra("user_name", _USERNAME);
+                CompletedPost.putExtra("premium",_PREMIUM);
                 startActivity(CompletedPost);
             }
         });
@@ -194,6 +206,7 @@ public class Profile extends AppCompatActivity {
                         changeIfo.putExtra("password",_PASSWORD);
                         changeIfo.putExtra("fav_artist",_FAVARTIST);
                         changeIfo.putExtra("fav_group",_FAVGROUP);
+                        changeIfo.putExtra("premium",_PREMIUM);
                         startActivity(changeIfo);
                         overridePendingTransition(0,0);
                         return true;
@@ -205,6 +218,7 @@ public class Profile extends AppCompatActivity {
                         changeIfo2.putExtra("password",_PASSWORD);
                         changeIfo2.putExtra("fav_artist",_FAVARTIST);
                         changeIfo2.putExtra("fav_group",_FAVGROUP);
+                        changeIfo2.putExtra("premium",_PREMIUM);
                         startActivity(changeIfo2);
                         overridePendingTransition(0,0);
                         return true;
@@ -216,6 +230,7 @@ public class Profile extends AppCompatActivity {
                         changeIfo3.putExtra("password",_PASSWORD);
                         changeIfo3.putExtra("fav_artist",_FAVARTIST);
                         changeIfo3.putExtra("fav_group",_FAVGROUP);
+                        changeIfo3.putExtra("premium",_PREMIUM);
                         startActivity(changeIfo3);
                         overridePendingTransition(0,0);
                         return true;
@@ -227,6 +242,7 @@ public class Profile extends AppCompatActivity {
                         changeIfo4.putExtra("password",_PASSWORD);
                         changeIfo4.putExtra("fav_artist",_FAVARTIST);
                         changeIfo4.putExtra("fav_group",_FAVGROUP);
+                        changeIfo4.putExtra("premium",_PREMIUM);
                         startActivity(changeIfo4);
                         overridePendingTransition(0,0);
                         return true;

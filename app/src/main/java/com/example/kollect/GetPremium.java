@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.annotations.NotNull;
 import com.paypal.checkout.PayPalCheckout;
 import com.paypal.checkout.approve.Approval;
@@ -37,16 +39,20 @@ import com.paypal.checkout.shipping.ShippingChangeActions;
 import com.paypal.checkout.shipping.ShippingChangeData;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GetPremium extends AppCompatActivity {
     private String _USERNAME;
+    private long _PREMIUM;
     private boolean isPremium;
     private static final String YOUR_CLIENT_ID = "Aetfa-NyKGfIWgKNR9PA3DeBxPKvSct9-tD392aBVw-S0Frr8kAjiyobjnEfkOMehPF8w1hAS_uo3iLf";
     PayPalButton payPalButton;
     Button btn_back;
     TextView payed;
 
-    private MySQLiteOpenHelper databaseHelper;
+    DatabaseReference reference;
+
+    //private MySQLiteOpenHelper databaseHelper;
     //PaymentButtonContainer paymentButtonContainer;
 
     @Override
@@ -61,15 +67,18 @@ public class GetPremium extends AppCompatActivity {
 
         ));
 
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+
         Intent intent = getIntent();
 
         _USERNAME = intent.getStringExtra("user_name");
-        databaseHelper = new MySQLiteOpenHelper(this);
+        _PREMIUM = intent.getLongExtra("premium", 0);
+        //databaseHelper = new MySQLiteOpenHelper(this);
         Log.w(_USERNAME, "user name");
-        isPremium = databaseHelper.getPremium(_USERNAME);
+        //isPremium = databaseHelper.getPremium(_USERNAME);
 
 
-        Log.w(String.valueOf(isPremium), "isPremium");
+        Log.w(String.valueOf(_PREMIUM), "isPremium");
 
         setContentView(R.layout.activity_get_premium);
 
@@ -80,14 +89,15 @@ public class GetPremium extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(GetPremium.this, Profile.class);
                 intent.putExtra("user_name", _USERNAME);
+                intent.putExtra("premium", _PREMIUM);
                 startActivity(intent);
             }
         });
 
         payPalButton = findViewById(R.id.payPalButton);
-        if (isPremium){
+        if (_PREMIUM == 1){
             findViewById(R.id.payPalButton).setClickable(false);
-            btn_back.setText("Return");
+            btn_back.setText("Back");
             payed = findViewById(R.id.textView_Payed);
             payed.setText("You are a premium member already! PayPal has been disabled.");
 
@@ -129,11 +139,14 @@ public class GetPremium extends AppCompatActivity {
                             @Override
                             public void onCaptureComplete(@NotNull CaptureOrderResult result) {
                                 Log.i("CaptureOrder", String.format("CaptureOrderResult: %s", result));
-                                databaseHelper.setPremium(_USERNAME, 1);
-                                Log.w(String.valueOf(databaseHelper.getPremium(_USERNAME)), "PREMIUM STATUS");
+                                //databaseHelper.setPremium(_USERNAME, 1);
+                                reference.child(_USERNAME).child("premium").setValue(1);
+                                // _PREMIUM = 1;
+                                Log.w(String.valueOf(_PREMIUM), "PREMIUM STATUS");
                                 Toast.makeText(GetPremium.this, "Thank you for your purchase!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(GetPremium.this, Profile.class);
                                 intent.putExtra("user_name", _USERNAME);
+                                intent.putExtra("premium", _PREMIUM);
                                 startActivity(intent);
                             }
                         });
