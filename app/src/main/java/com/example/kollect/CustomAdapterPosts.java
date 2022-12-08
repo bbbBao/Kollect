@@ -1,13 +1,17 @@
 package com.example.kollect;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -54,6 +58,8 @@ public class CustomAdapterPosts extends BaseAdapter {
             holder.tvstatus = (TextView) convertView.findViewById(R.id.status);
             holder.tvUserID = (TextView) convertView.findViewById(R.id.userID);
             holder.tvimagedata = (ImageView) convertView.findViewById(R.id.imageUpload);
+            holder.tvSwitch = (Switch) convertView.findViewById(R.id.staSwt);
+
 
 
             convertView.setTag(holder);
@@ -72,6 +78,26 @@ public class CustomAdapterPosts extends BaseAdapter {
         Bitmap b = BitmapFactory.decodeByteArray(pic, 0, pic.length);
         holder.tvimagedata.setImageBitmap(b);
 
+        if (posts.get(position).getStatus() == 1) {
+            holder.tvSwitch.setChecked(true);
+        }else {
+            holder.tvSwitch.setChecked(false);
+        }
+
+        holder.tvSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.tvSwitch.isChecked()) {
+                    holder.tvstatus.setText("Status: 1");
+                    posts.get(position).setStatus(1);
+                }else {
+                    holder.tvstatus.setText("Status: 0");
+                    posts.get(position).setStatus(0);
+                }
+            }
+        });
+
+
         return convertView;
     }
 
@@ -79,5 +105,6 @@ public class CustomAdapterPosts extends BaseAdapter {
 
         protected TextView tvSellername, tvArtistname,tvgroups, tvprice, tvstatus, tvUserID;
         protected ImageView tvimagedata;
+        protected Switch tvSwitch;
     }
 }
