@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class BlacklistInterface extends AppCompatActivity {
     private String _USERNAME;
+    private long _PREMIUM;
     private Button btnAdd, btnBack;
     private TextView bl_disable;
     private ListView listView;
@@ -28,22 +29,24 @@ public class BlacklistInterface extends AppCompatActivity {
         btnAdd = (Button) findViewById(R.id.Add_Blacklist_btn);
         btnBack = (Button) findViewById(R.id.bl_back);
 
+        databaseHelper = new MySQLiteOpenHelper(this);
+
+        Intent intent = getIntent();
+        _USERNAME = intent.getStringExtra("user_name");
+        _PREMIUM = intent.getLongExtra("premium", 0);
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(BlacklistInterface.this, Profile.class);
                 intent.putExtra("user_name", _USERNAME);
+                intent.putExtra("premium",_PREMIUM);
                 startActivity(intent);
             }
         });
 
-        databaseHelper = new MySQLiteOpenHelper(this);
 
-        Intent intent = getIntent();
-        _USERNAME = intent.getStringExtra("user_name");
-
-        boolean isPremium = databaseHelper.getPremium(_USERNAME);
-        if (!isPremium){
+        if (_PREMIUM == 0){
             btnAdd.setEnabled(false);
             bl_disable = findViewById(R.id.bl_disable);
             bl_disable.setText("You can't add seller since you are not a premium member.");
@@ -72,6 +75,8 @@ public class BlacklistInterface extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent blacklist = new Intent(getApplicationContext(),AddBlacklist.class);
+                blacklist.putExtra("user_name", _USERNAME);
+                blacklist.putExtra("premium",_PREMIUM);
                 startActivity(blacklist);
             }
         });

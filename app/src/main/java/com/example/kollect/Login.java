@@ -155,6 +155,7 @@ public class Login extends AppCompatActivity {
                         String instaidFromDb = dataSnapshot.child(userEnteredUsername).child("insta_id").getValue(String.class);
                         String favartistFromDb = dataSnapshot.child(userEnteredUsername).child("fav_artist").getValue(String.class);
                         String favgroupFromDb = dataSnapshot.child(userEnteredUsername).child("fav_group").getValue(String.class);
+                        long isPremium = dataSnapshot.child(userEnteredUsername).child("premium").getValue(Long.class);
                         USERID = dataSnapshot.child(userEnteredUsername).child("id").getValue(Integer.class);
 
                         Intent intent = new Intent(getApplicationContext(),Profile.class);
@@ -164,6 +165,7 @@ public class Login extends AppCompatActivity {
                         intent.putExtra("password",passwordFromDB);
                         intent.putExtra("fav_artist",favartistFromDb);
                         intent.putExtra("fav_group",favgroupFromDb);
+                        intent.putExtra("premium", isPremium);
 
                         startActivity(intent);
 

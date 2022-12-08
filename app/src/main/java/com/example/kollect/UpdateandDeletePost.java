@@ -13,7 +13,8 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 public class UpdateandDeletePost extends AppCompatActivity {
-
+    private String _USERNAME;
+    private long _PREMIUM;
     private Post post;
     private EditText etsname, etaname, etgroups, etprice,etstatus;
     private Button btnupdate, btndelete;
@@ -27,6 +28,8 @@ public class UpdateandDeletePost extends AppCompatActivity {
 
         Intent intent = getIntent();
         post = (Post) intent.getSerializableExtra("user");
+        _USERNAME = intent.getStringExtra("user_name");
+        _PREMIUM = intent.getLongExtra("premium", 0);
 
         databaseHelper = new MySQLiteOpenHelper(this);
 
@@ -66,6 +69,8 @@ public class UpdateandDeletePost extends AppCompatActivity {
                 databaseHelper.updatePost(post.getId(),etsname.getText().toString(),etaname.getText().toString(),etgroups.getText().toString(),Integer.parseInt(etprice.getText().toString()),post.getStatus(),USERID);
                 Toast.makeText(UpdateandDeletePost.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(UpdateandDeletePost.this,MainActivity.class);
+                intent.putExtra("user_name", _USERNAME);
+                intent.putExtra("premium", _PREMIUM);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -77,6 +82,8 @@ public class UpdateandDeletePost extends AppCompatActivity {
                 databaseHelper.deletePostFromDbByNumber(post.getId());
                 Toast.makeText(UpdateandDeletePost.this, "Deleted Successfully!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(UpdateandDeletePost.this,MainActivity.class);
+                intent.putExtra("user_name", _USERNAME);
+                intent.putExtra("premium", _PREMIUM);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }

@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -25,6 +27,7 @@ import java.util.Collections;
 
 public class Premium extends AppCompatActivity {
     private String _USERNAME;
+    private long _PREMIUM;
     private EditText artist_name;
     private Button search_btn;
     private TextView lower_bound;
@@ -37,11 +40,14 @@ public class Premium extends AppCompatActivity {
     private ArrayList<Integer> PriceArrayList;
     private TextView disable;
     private Button back;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_premium);
+
+        reference = FirebaseDatabase.getInstance().getReference("Users");
 
         artist_name = (EditText) findViewById(R.id.artist_name);
         search_btn = (Button) findViewById(R.id.search_btn);
@@ -55,11 +61,12 @@ public class Premium extends AppCompatActivity {
         Intent intent = getIntent();
 
         _USERNAME = intent.getStringExtra("user_name");
+        _PREMIUM = intent.getLongExtra("premium", 0);
 
         databaseHelper = new MySQLiteOpenHelper(this);
 
         boolean isPremium = databaseHelper.getPremium(_USERNAME);
-        if (!isPremium){
+        if (_PREMIUM == 0){
             search_btn.setEnabled(false);
             disable = findViewById(R.id.tv_disable);
             disable.setText("Premium member only. Function has been disabled.");
@@ -69,6 +76,7 @@ public class Premium extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Premium.this, Profile.class);
                 intent.putExtra("user_name", _USERNAME);
+                intent.putExtra("premium", _PREMIUM);
                 startActivity(intent);
             }
         });

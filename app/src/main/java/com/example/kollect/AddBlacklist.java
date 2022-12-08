@@ -24,7 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.ByteArrayOutputStream;
 
 public class AddBlacklist extends AppCompatActivity {
-
+    private String _USERNAME;
+    private long _PREMIUM;
     private MySQLiteOpenHelper dbManager;
     private Button btnSubmit;
     private EditText etUsername, etPaypalID;
@@ -39,6 +40,10 @@ public class AddBlacklist extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_blacklist);
+
+        Intent intent = getIntent();
+        _USERNAME = intent.getStringExtra("user_name");
+        _PREMIUM = intent.getLongExtra("premium", 0);
 
         dbManager = new MySQLiteOpenHelper(this);
         blacklistReference = FirebaseDatabase.getInstance().getReference().child("Blacklist");
@@ -65,6 +70,8 @@ public class AddBlacklist extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.putExtra("user_name", _USERNAME);
+                intent.putExtra("premium",_PREMIUM);
                 intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent,GALLERY_REQUEST_CODE);
             }
@@ -95,6 +102,8 @@ public class AddBlacklist extends AppCompatActivity {
 
                 Toast.makeText(AddBlacklist.this, "Stored Successfully!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AddBlacklist.this, BlacklistInterface.class);
+                intent.putExtra("user_name", _USERNAME);
+                intent.putExtra("premium",_PREMIUM);
                 startActivity(intent);
 
 
