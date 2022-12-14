@@ -147,7 +147,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
             android:backgroundTint="#82B1FF"
-            android:text="Get All Users from SQLite" />
+            android:text="Get All Users from SQLite"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnback"

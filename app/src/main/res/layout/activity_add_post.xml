@@ -96,19 +96,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Show on homepage"
-                android:textSize="20dp"/>
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="20dp" />
 
 
             <ImageView
                 android:id="@+id/imageUpload"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="147dp"
+                android:layout_height="144dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="42dp"
                 app:srcCompat="@android:drawable/ic_menu_camera" />
-
 
             <Button
                 android:id="@+id/btnstore"
@@ -126,7 +129,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/kollect_pink"
-                android:text="Get All Posts from SQLite" />
+                android:text="Get All Posts from SQLite"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnback"
