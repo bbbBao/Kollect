@@ -33,7 +33,7 @@
                 android:id="@+id/addGroupBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="add a new group"
+                android:text="ADD NEW GROUP"
                 android:textAllCaps="false" />
             <TextView
                 android:id="@+id/tv_no_data"
@@ -59,7 +59,7 @@
                 android:id="@+id/addArtistBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="add a new artist"
+                android:text="ADD NEW ARTIST"
                 android:textAllCaps="false" />
             <TextView
                 android:id="@+id/tv_no_data2"

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -25,9 +26,11 @@ public class AddPost extends AppCompatActivity {
     private long _PREMIUM;
     private MySQLiteOpenHelper dbManager;
     private Button btnStore, btnGetall;
-    private TextInputLayout etsname, etgroups, etprice,etaname,etstatus;
+    private TextInputLayout etsname, etgroups, etprice,etaname;
     private final int GALLERY_REQUEST_CODE = 1000;
+    private Switch etstatus;
     ImageView imgGallery;
+    int realstatus = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +45,23 @@ public class AddPost extends AppCompatActivity {
 
         btnStore = (Button) findViewById(R.id.btnstore);
         btnGetall = (Button) findViewById(R.id.btnget);
+        etstatus = (Switch) findViewById(R.id.switch3);
         etsname = findViewById(R.id.etsname);
         etaname = findViewById(R.id.etaname);
-        etstatus = findViewById(R.id.etstatus);
         etgroups = findViewById(R.id.etgroup);
         etprice = findViewById(R.id.etprice);
+        etstatus.setChecked(true);
+
+        etstatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etstatus.isChecked()) {
+                    realstatus = 1;
+                }else {
+                    realstatus = 0;
+                }
+            }
+        });
 
         imgGallery = (ImageView) findViewById(R.id.imageUpload);
         imgGallery.setOnClickListener(new View.OnClickListener() {
@@ -72,14 +87,14 @@ public class AddPost extends AppCompatActivity {
 
                 String sname = etsname.getEditText().getText().toString();
                 String aname = etaname.getEditText().getText().toString();
-                int status = Integer.parseInt(etstatus.getEditText().getText().toString());
+                int status = realstatus;
                 String groups = etgroups.getEditText().getText().toString();
                 int price = Integer.parseInt(etprice.getEditText().getText().toString());
 
                 dbManager.insertPost(sname, aname, groups, price,status,USERID,bArray);
                 etsname.getEditText().setText("");
                 etaname.getEditText().setText("");
-                etstatus.getEditText().setText("");
+
                 etgroups.getEditText().setText("");
                 etprice.getEditText().setText("");
                 Toast.makeText(AddPost.this, "Stored Successfully!", Toast.LENGTH_SHORT).show();

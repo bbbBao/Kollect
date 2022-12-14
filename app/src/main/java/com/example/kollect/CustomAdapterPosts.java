@@ -68,12 +68,16 @@ public class CustomAdapterPosts extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
-        holder.tvSellername.setText("Seller Name: "+ posts.get(position).getSellerName());
-        holder.tvArtistname.setText("Artist Name: "+ posts.get(position).getArtistName());
-        holder.tvgroups.setText("Artist Groups: "+ posts.get(position).getGroups());
+        holder.tvSellername.setText("Seller: "+ posts.get(position).getSellerName());
+        holder.tvArtistname.setText("Artist: "+ posts.get(position).getArtistName());
+        holder.tvgroups.setText("Groups: "+ posts.get(position).getGroups());
         holder.tvprice.setText("Price: "+ posts.get(position).getPrice());
-        holder.tvstatus.setText("Status: "+ posts.get(position).getStatus());
-        holder.tvUserID.setText("User_ID: " + posts.get(position).getUserID());
+        if (posts.get(position).getStatus() == 0){
+            holder.tvstatus.setText("Completed");
+        }else{
+            holder.tvstatus.setText("Not Completed");
+        }
+        holder.tvUserID.setText("User ID: " + posts.get(position).getUserID());
         byte[] pic = (posts.get(position).getImages());
         Bitmap b = BitmapFactory.decodeByteArray(pic, 0, pic.length);
         holder.tvimagedata.setImageBitmap(b);

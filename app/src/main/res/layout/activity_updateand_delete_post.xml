@@ -84,20 +84,18 @@
         android:background="#fff"
         android:hint="Enter Price" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Status"
-        android:textColor="#8C9EFF"
-        android:textSize="20sp" />
-
 
     <Switch
         android:id="@+id/switch2"
-        android:layout_width="62dp"
-        android:layout_height="53dp" />
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Show on homepage"
+        android:textColor="#8C9EFF"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnupdate"
@@ -105,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="update" />
+        android:text="update post" />
 
     <Button
         android:id="@+id/btndelete"
@@ -113,7 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="delete" />
+        android:text="delete post" />
 
 
 </LinearLayout>

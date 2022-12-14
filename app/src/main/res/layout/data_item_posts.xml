@@ -25,16 +25,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
+                android:layout_weight="9"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Seller Name"
+                android:text="Seller"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"
-                android:layout_weight="9"/>
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/status"
-                android:layout_width="68dp"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
 
@@ -43,7 +43,6 @@
                 android:gravity="center"
                 android:padding="2dp"
                 android:shadowRadius="3"
-                android:text="Status"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/dark" />
 
@@ -66,61 +65,73 @@
 
             <TextView
                 android:id="@+id/artist_name"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Artist Name"
+                android:text="Artist"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"
-                android:layout_weight="3"/>
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/groups"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="Artist Groups"
+                android:text="Groups"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"
-                android:layout_weight="3"/>
+                android:textColor="@color/black" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="30px"
+            android:weightSum="17">
 
             <TextView
                 android:id="@+id/dollar_sign"
-                android:layout_width="wrap_content"
+                android:layout_width="14dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="$"
-                android:textSize="25dp"
+                android:text="$ "
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/black"
-                android:layout_weight="1"/>
+                android:textSize="25dp" />
+
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="10"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="Price"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/black"
-                android:layout_weight="10"
-                android:textSize="25dp"
-                />
+                android:textSize="25dp" />
+
         </LinearLayout>
 
         <TextView
             android:id="@+id/userID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="30px"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:text="user_id"
+            android:text="User ID"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/black"
-            android:layout_margin="30px"/>
+            android:textColor="@color/black" />
 
 
     </LinearLayout>
