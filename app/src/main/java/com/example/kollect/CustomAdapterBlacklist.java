@@ -1,5 +1,6 @@
 package com.example.kollect;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.ablanco.zoomy.TapListener;
+import com.ablanco.zoomy.Zoomy;
 
 import java.util.ArrayList;
 
@@ -65,6 +70,18 @@ public class CustomAdapterBlacklist extends BaseAdapter {
         byte[] pic = (blacklists.get(position).getImages());
         Bitmap b = BitmapFactory.decodeByteArray(pic, 0, pic.length);
         holder.tvProofImg.setImageBitmap(b);
+
+        Zoomy.Builder builder = new Zoomy.Builder((Activity) context)
+                .target(holder.tvProofImg)
+                .animateZooming(false)
+                .enableImmersiveMode(false)
+                .tapListener(new TapListener() {
+                    @Override
+                    public void onTap(View v) {
+                        Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        builder.register();
 
 
 

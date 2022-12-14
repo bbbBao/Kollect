@@ -91,7 +91,6 @@
 
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:text="Lower bound"
                     android:textSize="20dp" />
             </TableRow>
 
@@ -115,7 +114,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:text="Upper bound"
                     android:textSize="20dp" />
             </TableRow>
 
@@ -139,7 +137,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:text="Mean"
                     android:textSize="20dp" />
             </TableRow>
 
@@ -163,7 +160,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:text="Median"
                     android:textSize="20dp" />
             </TableRow>
 
@@ -187,7 +183,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:text="Price"
                     android:textSize="20dp" />
             </TableRow>
         </TableLayout>

@@ -1,5 +1,6 @@
 package com.example.kollect;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,8 +14,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import java.util.ArrayList;
+import android.widget.Toast;
 
+import com.ablanco.zoomy.TapListener;
+import com.ablanco.zoomy.Zoomy;
+
+import java.util.ArrayList;
 public class CustomAdapterPosts extends BaseAdapter {
     private Context context;
     private ArrayList<Post> posts;
@@ -59,9 +64,6 @@ public class CustomAdapterPosts extends BaseAdapter {
             holder.tvUserID = (TextView) convertView.findViewById(R.id.userID);
             holder.tvimagedata = (ImageView) convertView.findViewById(R.id.imageUpload);
 
-
-
-
             convertView.setTag(holder);
         }else {
             // the getTag returns the viewHolder object set as a tag to the view
@@ -81,6 +83,19 @@ public class CustomAdapterPosts extends BaseAdapter {
         byte[] pic = (posts.get(position).getImages());
         Bitmap b = BitmapFactory.decodeByteArray(pic, 0, pic.length);
         holder.tvimagedata.setImageBitmap(b);
+
+        Zoomy.Builder builder = new Zoomy.Builder((Activity) context)
+                .target(holder.tvimagedata)
+                .animateZooming(false)
+                .enableImmersiveMode(false)
+                .tapListener(new TapListener() {
+                    @Override
+                    public void onTap(View v) {
+                        Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        builder.register();
+
 
 
 
