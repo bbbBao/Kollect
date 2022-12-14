@@ -145,6 +145,7 @@ public class GetPremium extends AppCompatActivity {
                                 Log.w(String.valueOf(_PREMIUM), "PREMIUM STATUS");
                                 Toast.makeText(GetPremium.this, "Thank you for your purchase!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(GetPremium.this, Profile.class);
+                                _PREMIUM = 1;
                                 intent.putExtra("user_name", _USERNAME);
                                 intent.putExtra("premium", _PREMIUM);
                                 startActivity(intent);
