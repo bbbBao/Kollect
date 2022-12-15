@@ -27,6 +27,8 @@ public class Profile extends AppCompatActivity {
     private ImageView get_pre_arr;
     private TextView blacklist_txt;
     private ImageView blacklist_arr;
+    private TextView logout_txt;
+    private ImageView logout_arr;
     private Button instaButton;
     private String _USERNAME,_GENDER,_INSTALINK,_PASSWORD,_FAVARTIST,_FAVGROUP;
     private long _PREMIUM;
@@ -47,6 +49,8 @@ public class Profile extends AppCompatActivity {
         get_pre_arr = (ImageView)findViewById(R.id.get_pre_arr);
         blacklist_txt = (TextView)findViewById(R.id.blacklist_txt);
         blacklist_arr = (ImageView)findViewById(R.id.blacklist_arr);
+        logout_txt = (TextView)findViewById(R.id.logout_txt);
+        logout_arr = (ImageView)findViewById(R.id.logout_arr);
 
         Intent intent = getIntent();
 
@@ -171,6 +175,22 @@ public class Profile extends AppCompatActivity {
                 CompletedPost.putExtra("user_name", _USERNAME);
                 CompletedPost.putExtra("premium",_PREMIUM);
                 startActivity(CompletedPost);
+            }
+        });
+
+        logout_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Logout = new Intent(getApplicationContext(), com.example.kollect.Login.class);
+                startActivity(Logout);
+            }
+        });
+
+        logout_arr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Logout = new Intent(getApplicationContext(), com.example.kollect.Login.class);
+                startActivity(Logout);
             }
         });
 
