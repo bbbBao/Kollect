@@ -56,7 +56,7 @@ Minimum SDK Version: 22
 
 ## :wrench: Installation
 
-Import the project to Android Studio and compile.
+Download and install the APK file from [Release](https://github.com/bbbBao/Kollect/releases). 
 
 ## :notebook: Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
