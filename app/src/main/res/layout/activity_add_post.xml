@@ -95,7 +95,7 @@
                 android:id="@+id/switch3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Show on homepage"
+                android:hint="Have you completed the purchase?"
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:paddingRight="10dp"

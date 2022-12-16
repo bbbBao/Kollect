@@ -12,12 +12,10 @@ import java.util.ArrayList;
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME="KollectData.db";//数据库名字
-    private static final String TABLE_NAME_POSTS="Post";//表的名字
-    private static final String TABLE_NAME_USER="User";//表的名字
-    private static final String TABLE_NAME_BLACKLIST="Blacklist";//表的名字
-    private static final String TABLE_NAME_FAVGROUPLIST="FavGroupList";//表的名字
-    private static final String FAVARTISTLIST="FavArtistlist";//表的名字
+    private static final String DB_NAME="KollectData.db";
+    private static final String TABLE_NAME_POSTS="Post";
+    private static final String TABLE_NAME_USER="User";
+    private static final String TABLE_NAME_BLACKLIST="Blacklist";
 
     private static final String KEY_ID = "id";
 
@@ -26,7 +24,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {  //onCreate是创建数据库方法
+    public void onCreate(SQLiteDatabase db) {
         Log.e("DBOpenHelper", "DBOpenHelperDBOpenHelperDBOpenHelperDBOpenHelper");
         db.execSQL("CREATE TABLE IF NOT EXISTS Post (" +
                 "id integer primary key autoincrement, " +
@@ -47,21 +45,17 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                 "gender varchar(6), " +
                 "premium integer DEFAULT 0, " +
                 "insta_id varchar(60))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS install (id integer primary key autoincrement, na varchar(60), it varchar(60),d varchar(60))");
+
         db.execSQL("CREATE TABLE IF NOT EXISTS Blacklist (" +
                 "id integer primary key autoincrement, " +
                 "instagramID varchar(60) not null, " +
                 "paypalID varchar(60)," +
                 "reportNum integer default 1," +
                 "proofImg blob)");
-        //    db.execSQL("CREATE TABLE IF NOT EXISTS FavGroupList("+
-        //          "id integer primary key autoincrement,"+
-        //        "username varchar(60) NOT NULL)"
-        //);
 
     }
 
-    //这个方法是数据库升级的时候使用到的，因为我没有用到，所以就没有写
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.e("DBOpenHelper", "onUpgradeonUpgradeonUpgradeonUpgrade");
@@ -86,13 +80,13 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME_POSTS,null,values);
 
     }
-    //根据学号删除信息 防止有重名的同学
+
     public void deletePostFromDbByNumber(int number){
         SQLiteDatabase db=getWritableDatabase();
-        //返回的是删除的条数
+
         db.delete(TABLE_NAME_POSTS, KEY_ID + " = ?",new String[]{String.valueOf(number)});
     }
-    //修改数据
+
     public void updatePost(int id,String sname,String aname, String agroup, int price, int status, int userID){
         SQLiteDatabase db=getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -102,10 +96,10 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         values.put("price",price);
         values.put("status",status);
         values.put("user_id",userID);
-        //依旧是根据学号改
+
         db.update(TABLE_NAME_POSTS, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
     }
-    //查询数据
+
     public ArrayList<Post> selectPost(int number){
         SQLiteDatabase db=getWritableDatabase();
         ArrayList<Post> postList =new ArrayList<>();
@@ -354,7 +348,6 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    //添加数据
     public void insertUser(String user_name, String password, String gender, String instagram_id){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -365,13 +358,13 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         values.put("premium", 0);
         db.insert(TABLE_NAME_USER,null,values);
     }
-    //根据学号删除信息 防止有重名的同学
+
     public void deleteUserFromDbByNumber(int number){
         SQLiteDatabase db=getWritableDatabase();
-        //返回的是删除的条数
+
         db.delete(TABLE_NAME_USER, KEY_ID + " = ?",new String[]{String.valueOf(number)});
     }
-    //修改数据
+
     public void updateUser(int id, String user_name, String password, String gender, String instagram_id){
         SQLiteDatabase db=getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -379,10 +372,10 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         values.put("password", password);
         values.put("gender", gender);
         values.put("insta_id", instagram_id);
-        //依旧是根据学号改
+
         db.update(TABLE_NAME_USER, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
     }
-    //查询数据
+
     public ArrayList<User> selectUser(int number){
         SQLiteDatabase db=getWritableDatabase();
         ArrayList<User> artistList=new ArrayList<>();
@@ -438,23 +431,6 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         return users;
     }
 
-//    public long getNextId(String tableName) {
-//        SQLiteDatabase db=getWritableDatabase();
-//        Cursor c = null;
-//        long seq = 0;
-//        try {
-//            String sql = "select seq from sqlite_sequence where name=?";
-//            c = db.rawQuery(sql, new String[] {tableName});
-//            if (c.moveToFirst()) {
-//                seq = c.getLong(0);
-//            }
-//        } finally {
-//            if (c != null) {
-//                c.close();
-//            }
-//        }
-//        return seq + 1;
-//    }
 
     @SuppressLint("Range")
     public int getAutoIncrements(){
